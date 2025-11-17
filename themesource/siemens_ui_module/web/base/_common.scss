@@ -1,0 +1,93 @@
+@use "../disw_base-variables" as *;
+
+$radii: (
+  xs: var(--disw-g-border-radius-xs),
+  sm: var(--disw-g-border-radius-sm),
+  md: var(--disw-g-border-radius-md),
+  lg: var(--disw-g-border-radius-lg),
+  xl: var(--disw-g-border-radius-xl),
+  rounded: var(--disw-g-border-radius-4xl),
+);
+
+// Generate border radius classes
+@each $size, $sizeValue in $radii {
+  .border-radius-#{$size} {
+    border-radius: $sizeValue;
+  }
+}
+
+img.img-rounded,
+.img-rounded img {
+  border-radius: var(--disw-g-border-radius-md);
+}
+
+.border-all {
+  border: 1px solid var(--cell-border-color);
+}
+
+.border-top {
+  border-top: 1px solid var(--cell-border-color);
+}
+
+.border-bottom {
+  border-bottom: 1px solid var(--cell-border-color);
+}
+
+.border-right {
+  border-right: 1px solid var(--cell-border-color);
+}
+
+.border-left {
+  border-left: 1px solid var(--cell-border-color);
+}
+
+// Need to override
+@media (min-width: $screen-lg) {
+  .hide-desktop {
+    display: none !important;
+  }
+}
+
+@media (min-width: $screen-md) and (max-width: $screen-md-max) {
+  .hide-tablet {
+    display: none !important;
+  }
+}
+
+@media (max-width: $screen-sm-max) {
+  .hide-phone {
+    display: none !important;
+  }
+}
+
+.absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.overflow-x-hidden {
+  overflow-x: hidden;
+}
+.overflow-y-hidden {
+  overflow-y: hidden;
+}
+.overflow-hidden {
+  overflow: hidden;
+}
+
+$position: (
+  static: static,
+  relative: relative,
+  absolute: absolute,
+  fixed: fixed,
+  sticky: sticky,
+);
+
+// Generate position classes
+@each $size, $sizeValue in $position {
+  .position-#{$size} {
+    position: $sizeValue;
+  }
+}

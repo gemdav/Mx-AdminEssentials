@@ -1,0 +1,109 @@
+@use "./mixins" as *;
+@use "../buttons/mixins" as *;
+@use "../primary-nav/mixins" as *;
+
+.avatar-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: var(--avatar-bg-color);
+
+  // Sizes
+  &.xxs {
+    @include AvatarSize(24px);
+
+    .avatar-initials {
+      font-size: var(--disw-g-font-size-xs);
+    }
+  }
+
+  &.xs {
+    @include AvatarSize(32px);
+
+    .avatar-initials {
+      font-size: var(--disw-g-font-size-sm);
+    }
+  }
+
+  &.sm {
+    @include AvatarSize(48px);
+
+    .avatar-initials {
+      font-size: var(--disw-g-font-size-lg);
+    }
+  }
+
+  &.md {
+    @include AvatarSize(64px);
+
+    .avatar-initials {
+      font-size: var(--disw-g-font-size-2xl);
+    }
+  }
+
+  &.lg {
+    @include AvatarSize(80px);
+
+    .avatar-initials {
+      font-size: var(--disw-g-font-size-3xl);
+    }
+  }
+}
+
+// When avatars is used with a tooltip
+// Shows username on hover
+.avatar-tooltip {
+  > .widget-tooltip-content {
+    min-width: 122px;
+    padding: var(--disw-g-spacing-md) var(--disw-g-spacing-xl);
+    font-weight: inherit;
+    color: var(--tooltip-menu-color);
+  }
+}
+
+// Shows menu when clicked on
+.avatar-tooltip-menu {
+  @extend .avatar-tooltip;
+
+  > .widget-tooltip-content {
+    min-width: 280px;
+    padding: inherit;
+  }
+
+  .btn {
+    justify-content: flex-start;
+  }
+}
+
+// When avatar is used in the application header
+.application-frame {
+  .application-frame-header {
+    &:has(.avatar-tooltip) {
+      padding: 0;
+
+      .widget-tooltip {
+        &.avatar-tooltip {
+          .widget-tooltip-trigger {
+            @include createNavBarItemPseudoStyles;
+            cursor: pointer;
+          }
+        }
+
+        &.avatar-tooltip-menu {
+          > .widget-tooltip-content {
+            .widget-tooltip-arrow-top {
+              display: none;
+            }
+
+            .mx-button {
+              font-weight: inherit;
+              color: var(--tooltip-menu-color);
+              padding: var(--disw-g-spacing-md) var(--disw-g-spacing-xl);
+            }
+          }
+        }
+      }
+    }
+  }
+}

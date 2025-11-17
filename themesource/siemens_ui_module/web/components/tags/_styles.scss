@@ -1,0 +1,128 @@
+@use "./mixins" as *;
+
+.disw-tag {
+  padding: var(--disw-g-spacing-sm) var(--disw-g-spacing-md);
+  border: 1px solid;
+  border-radius: var(--disw-g-border-radius-2xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--disw-g-spacing-md);
+
+  @include createTagFontStyles;
+  @include createTagVariantColorStyles;
+
+  .mx-image-viewer {
+    width: auto;
+
+    span {
+      display: block;
+    }
+  }
+
+  .disw-tag-indicator {
+    @include createTagIndicatorStyles;
+  }
+
+  &.primary {
+    @include createPrimaryTagColorStyles;
+  }
+
+  &.inverse {
+    @include createInverseTagColorStyles;
+  }
+
+  &.success {
+    @include createSuccessTagColorStyles;
+  }
+
+  &.success-base {
+    @include createSuccessBaseTagColorStyles;
+  }
+
+  &.warning {
+    @include createWarningTagColorStyles;
+  }
+
+  &.warning-base {
+    @include createWarningBaseTagColorStyles;
+  }
+
+  &.error {
+    @include createErrorTagColorStyles;
+  }
+
+  &.error-base {
+    @include createErrorBaseTagColorStyles;
+  }
+
+  &.disabled {
+    pointer-events: none;
+    @include createDisabledColorStyles;
+
+    .disw-tag-indicator {
+      @include createDisabledTagIndicatorColorStyles;
+    }
+  }
+
+  &.interactive {
+    box-shadow: var(--disw-g-elevation-2);
+
+    &.disabled {
+      box-shadow: none;
+    }
+  }
+
+  .disw-tag-close {
+    [role="button"] {
+      @include tagCloseStyles;
+    }
+  }
+
+  .disw-tag-selected {
+    display: none;
+  }
+
+  &.selected,
+  .widget-gallery-selected &,
+  .selected &,
+  [aria-selected="true"] & {
+    @include createInverseTagColorStyles;
+
+    &.accent {
+      @include createPrimaryTagColorStyles;
+    }
+
+    &.success {
+      @include createSuccessTagColorStyles;
+    }
+
+    &.success-base {
+      @include createSuccessBaseTagColorStyles;
+    }
+
+    &.warning-base {
+      @include createWarningBaseTagColorStyles;
+    }
+
+    &.warning {
+      @include createWarningTagColorStyles;
+    }
+
+    &.error {
+      @include createErrorTagColorStyles;
+    }
+
+    &.error-base {
+      @include createErrorBaseTagColorStyles;
+    }
+
+    &.disabled {
+      @include createDisabledColorStyles;
+    }
+
+    .disw-tag-selected {
+      display: block;
+    }
+  }
+}

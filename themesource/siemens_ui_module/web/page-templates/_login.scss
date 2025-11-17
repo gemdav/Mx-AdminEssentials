@@ -1,0 +1,144 @@
+@use "../base/mixins" as *;
+@use "../base/typography";
+@use "../disw_base-variables" as *;
+
+%transition {
+  transition: transform 320ms ease-in-out;
+  transition-property: all;
+}
+
+/* ==========================================================================
+    DISW_Login
+========================================================================== */
+
+.login-page {
+  background: #000028;
+
+  &.graphic_background::before {
+    content: "";
+    display: block;
+    position: absolute;
+    background: url("resources/images/Siemens-Xcelerator-X.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: 420% 50%;
+
+    height: 364px; // According to DI SW Figma file
+    width: 336px; // According to DI SW Figma file
+    bottom: 20%;
+    right: 0;
+
+    @extend %transition;
+
+    @media (min-width: $screen-sm) {
+      height: 600px; // According to DI SW Figma file
+      width: 554px; // According to DI SW Figma file
+      bottom: 191px;
+    }
+
+    @media (min-width: $screen-md) {
+      height: 717px; // According to DI SW Figma file
+      width: 662px; // According to DI SW Figma file
+      bottom: 172px;
+    }
+
+    @media (min-width: $screen-lg) {
+      bottom: 0;
+    }
+  }
+
+  .application-frame-header {
+    padding: var(--disw-g-spacing-4xl);
+    background: transparent;
+  }
+
+  .brand-logo {
+    img {
+      width: 194px;
+      @extend %transition;
+
+      @media (min-width: $screen-md) {
+        width: 250px;
+      }
+    }
+  }
+
+  .login-dialog-modal {
+    background: #202034;
+    position: relative;
+    max-width: calc(100% - 16px);
+    width: 436px;
+    z-index: 1;
+
+    @media (min-width: $screen-sm) {
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      position: absolute;
+    }
+  }
+
+  .mx-text {
+    color: var(--font-color-default);
+  }
+
+  .mx-validation-message {
+    border-color: var(--information-bar-error-border);
+    background-color: var(--information-bar-error-bg);
+    padding: var(--disw-g-spacing-md);
+
+    .mx-text {
+      color: var(--information-bar-error-label-color);
+
+      @include small-text;
+    }
+  }
+}
+
+.disclaimer-div {
+  // Siemens Sans is not part of DI SW foundations at the time of implementation.
+  // Nothing below is part of DI SW Foundations. It's the only exception.
+  font-family: "Siemens Sans", "Open Sans", Verdana, Arial, Helvetica,
+    sans-serif;
+  background: #000028;
+  padding: var(--disw-g-spacing-xl);
+  position: fixed;
+  bottom: 0;
+  @extend %transition;
+
+  .mx-text {
+    font-size: 15px;
+    line-height: 19px;
+    color: var(--disclaimer-text-color);
+  }
+
+  .text-heading {
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 36px;
+    margin-top: 0;
+    margin-bottom: var(--disw-g-spacing-xl);
+  }
+
+  .text-trademark {
+    font-size: 19px;
+    line-height: 27px;
+    margin-top: var(--disw-g-spacing-xs);
+  }
+
+  @media (min-width: $screen-sm) {
+    position: absolute;
+    bottom: 0;
+    background: transparent;
+    margin-top: 0;
+  }
+
+  @media (min-width: $screen-lg) {
+    padding: 100px;
+    max-width: 930px;
+  }
+
+  @media (max-width: $screen-sm) and (max-height: 768px) {
+    position: relative;
+  }
+}

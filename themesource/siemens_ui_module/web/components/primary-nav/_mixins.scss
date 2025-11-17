@@ -1,0 +1,73 @@
+@mixin navbar-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  background-color: inherit;
+  color: var(--navsidebar-color);
+  font-weight: var(--font-weight-light);
+  font-size: var(--disw-g-font-size-xxs);
+  line-height: var(--disw-g-line-height-xxs);
+}
+
+@mixin mobile-navbar-item {
+  flex-direction: row;
+  gap: var(--disw-g-spacing-2xl);
+  padding: var(--disw-g-spacing-sm) 0 var(--disw-g-spacing-sm)
+    var(--disw-g-spacing-2xl);
+  font-size: var(--disw-g-font-size-md);
+  line-height: var(--disw-g-line-height-md);
+}
+
+@mixin createNavBarItemPseudoStyles {
+  &:hover {
+    background-color: var(--navsidebar-hover-bg);
+  }
+
+  &:focus {
+    outline: 2px solid var(--btn-outline-color) !important; // default link styles have !important :(
+    outline-offset: -4px;
+  }
+
+  &:active {
+    background-color: var(--navsidebar-active-bg);
+  }
+}
+
+@mixin createNavBarItemActiveState {
+  background-color: var(--navsidebar-selected-bg);
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 4px;
+    background-color: var(--navsidebar-selected-border-color);
+    left: 0;
+    top: 0;
+    z-index: 1;
+  }
+}
+
+@mixin alert-badge {
+  background: var(--badge-bg);
+  color: var(--badge-color);
+  font-weight: var(--font-weight-bold);
+  border-radius: 100%;
+  width: 16px;
+  height: 16px;
+  padding: 1px 0;
+
+  font-size: var(--disw-g-font-size-xxs);
+  line-height: var(--disw-g-line-height-xxs);
+}
+
+@mixin right-arrow {
+  content: "\e91e";
+  display: inline-block;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  font-family: var(--font-family-common-icon);
+}

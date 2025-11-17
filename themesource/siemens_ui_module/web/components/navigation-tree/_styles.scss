@@ -1,0 +1,99 @@
+@use "../primary-nav/mixins" as *;
+
+.region-sidebar .mx-navigationtree {
+  background-color: transparent;
+
+  .navbar-inner > ul > li {
+    &:hover {
+      > a:not(.active) {
+        background-color: var(--navsidebar-active-bg);
+      }
+    }
+
+    > a {
+      padding: 0 !important;
+      outline-offset: -2px;
+      border-radius: 0;
+      white-space: normal;
+      font-size: var(--disw-g-font-size-sm);
+      line-height: var(--disw-g-line-height-sm);
+      flex-direction: row;
+      text-wrap: nowrap;
+
+      > span[class*="Icon"] {
+        min-width: 52px;
+        text-align: center;
+      }
+
+      &:focus {
+        background-color: inherit;
+      }
+
+      &:active {
+        background-color: var(--navsidebar-active-bg);
+      }
+
+      &.active {
+        @include createNavBarItemActiveState;
+        border-radius: 0px;
+
+        &:before {
+          top: auto;
+          height: 52px;
+        }
+      }
+    }
+  }
+
+  li.mx-navigationtree-has-items {
+    a {
+      &[aria-expanded="true"],
+      &[aria-expanded="true"]:hover,
+      &[aria-expanded="true"]:focus {
+        background-color: var(--navsidebar-active-bg);
+      }
+    }
+
+    &:has(.active) a[aria-expanded="true"] {
+      @include createNavBarItemActiveState;
+
+      &:before {
+        top: auto;
+        height: 52px;
+      }
+    }
+
+    > ul {
+      background-color: var(--navsidebar-active-bg);
+      padding: var(--disw-g-spacing-sm) 0 var(--disw-g-spacing-sm) var(--disw-g-spacing-3xl);
+
+      li a {
+        display: block;
+        position: relative;
+        text-overflow: ellipsis;
+        background-color: inherit;
+        border-radius: 0;
+        font-size: var(--disw-g-font-size-sm);
+        padding: var(--disw-g-spacing-xl) var(--disw-g-spacing-xl) var(--disw-g-spacing-xl) calc(var(--disw-g-spacing-3xl) + var(--disw-g-spacing-xl));
+
+        > span[class*="Icon"] {
+          position: absolute;
+          left: 16px;
+          top: 14px;
+        }
+
+        &:hover {
+          background-color: var(--navsidebar-hover-bg);
+        }
+      }
+    }
+  }
+}
+
+// Navigation list styles
+.mx-navigationlist li.mx-navigationlist-item {
+  &:hover,
+  &:focus {
+    background-color: var(--navsidebar-hover-bg);
+  }
+}

@@ -1,0 +1,185 @@
+@use "./mixins" as *;
+@use "../input/mixins" as *;
+
+/* ==========================================================================
+  Basic loading indicator
+========================================================================== */
+
+.basic-loading-indicator {
+  font-weight: var(--font-weight-bold);
+  font-size: var(--disw-g-font-size-xs);
+  color: var(--loading-indicator-fill-color);
+
+  &.loading {
+    &::after {
+      content: "";
+      animation: 2s linear 0s infinite normal none running basic-content;
+    }
+  }
+}
+
+/* ==========================================================================
+  Circular loading indicator
+========================================================================== */
+
+.circular-loading-indicator {
+  position: relative;
+  overflow: hidden;
+
+  .spinner {
+    @include createSpinner;
+    @include createSpinnerAnimation;
+
+    background-image: radial-gradient(
+      transparent calc(var(--rad-inner) - 1px),
+      var(--loading-indicator-bg-color) calc(var(--rad-outer) - 1px),
+      transparent calc(var(--rad-outer)),
+      transparent 100%
+    );
+
+    &::before {
+      content: "";
+      @include createSpinner;
+
+      background: conic-gradient(
+        var(--loading-indicator-fill-color) var(--circular-fill-degrees),
+        transparent calc(var(--circular-fill-degrees)) 100%
+      );
+
+      mask-image: radial-gradient(
+        transparent calc(var(--rad-inner) - 1px),
+        var(--loading-indicator-bg-color) calc(var(--rad-inner)),
+        var(--loading-indicator-bg-color) calc(var(--rad-outer) - 1px),
+        transparent calc(var(--rad-outer)),
+        transparent 100%
+      );
+    }
+  }
+
+  // Sizes
+  @each $size, $sizeValue in $indicatorSizes {
+    &.#{$size} {
+      @include circularLoadingIndicatorSize($sizeValue);
+    }
+  }
+}
+
+/* ==========================================================================
+  Linear Progress indicator
+========================================================================== */
+
+.widget-progress-bar,
+.widget-progress-bar.progress-bar-primary {
+  .progress {
+    background-color: var(--loading-indicator-bg-color);
+  }
+
+  .progress-bar {
+    background-color: var(--loading-indicator-fill-color);
+    font-size: 0;
+  }
+
+  &.indeterminate {
+    .progress-bar {
+      @include createLinearLoadingAnimation;
+    }
+  }
+
+  &.query {
+    .progress-bar {
+      @include createLinearLoadingAnimation;
+      animation-direction: reverse;
+    }
+  }
+
+  // Sizes
+  &.progress-bar-small,
+  &.progress-bar-medium {
+    @include linearLoadingIndicatorSize(4px, 4px, 4px);
+  }
+
+  &.progress-bar-large {
+    @include linearLoadingIndicatorSize(24px, 18px, 30px);
+
+    .progress-bar {
+      height: 20px;
+      left: 2px;
+      top: 2px;
+      color: var(--loading-indicator-text-color);
+      font-weight: var(--font-weight-normal);
+      font-size: var(--disw-g-font-size-sm);
+    }
+  }
+
+  &.data-progress-bar {
+    .progress-bar {
+      background-color: var(--loading-indicator-fill-primary-color);
+    }
+  }
+
+  &.progress-bar-paused {
+    .progress-bar {
+      background-color: var(--loading-indicator-fill-paused-color);
+    }
+  }
+
+  &.progress-bar-danger,
+  &.has-error {
+    .progress {
+      &:after {
+        @include createErrorIconStyles;
+        @include updateErrorIconStyles;
+      }
+    }
+
+    .progress-bar {
+      background-color: var(--loading-indicator-fill-error-color);
+    }
+
+    + label {
+      color: var(--loading-indicator-text-error-color);
+    }
+  }
+}
+
+.mx-progress {
+  background-color: var(--mx-progress-bar-container-bg);
+  box-shadow: var(--disw-g-elevation-5);
+  opacity: 0.9;
+
+  > div {
+    margin: 0 auto;
+  }
+
+  .mx-progress-indicator {
+    height: 4px;
+    background-color: var(--loading-indicator-bg-color);
+    border-radius: var(--disw-g-border-radius-lg);
+
+    &::before {
+      height: 4px;
+      border-radius: var(--disw-g-border-radius-lg);
+      background-color: var(--loading-indicator-fill-color);
+
+      @include createLinearLoadingAnimation;
+
+      width: 20% !important;
+    }
+    &::after {
+      display: none;
+    }
+  }
+
+  .mx-progress-message {
+    color: var(--font-color-default);
+    margin-bottom: var(--disw-g-spacing-md);
+  }
+}
+
+.disw-wizard-progress-bar {
+  &:has(.progress-bar-danger, .has-error) {
+    .hint-text {
+      color: transparent;
+    }
+  }
+}

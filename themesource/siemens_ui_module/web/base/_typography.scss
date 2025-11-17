@@ -1,0 +1,84 @@
+// @use "../mappings/disw_custom-variables" as *;
+@use "../disw_base-variables" as *;
+@use "../disw_css-mappings" as *;
+@use "./mixins" as *;
+
+/* ==========================================================================
+   Typography
+
+========================================================================== */
+
+.text-display-1 {
+  font-size: var(--disw-g-font-size-3xl);
+  line-height: var(--disw-g-line-height-3xl);
+
+  @media (min-width: $screen-md) {
+    font-size: var(--text-display-1);
+    line-height: var(--disw-g-line-height-4xl);
+  }
+}
+
+.text-display-2 {
+  font-size: var(--disw-g-font-size-2xl);
+  line-height: var(--disw-g-line-height-2xl);
+
+  @media (min-width: $screen-md) {
+    font-size: var(--text-display-2);
+    line-height: var(--disw-g-line-height-3xl);
+  }
+}
+
+.header-title {
+  font-size: var(--font-size-h3);
+
+  @media (min-width: $screen-sm) {
+    font-size: var(--font-size-h1);
+  }
+}
+
+.text-body2 {
+  font-weight: var(--font-weight-bold);
+
+  @include small-text;
+}
+
+.text-hint {
+  color: var(--text-hint-color);
+  font-style: italic;
+
+  @include small-text;
+}
+
+.hint-text {
+  color: var(--text-hint-color);
+}
+
+.text-small {
+  line-height: var(--disw-g-line-height-xs);
+}
+
+.text-wrap {
+  white-space: normal;
+}
+
+span,
+.mx-link {
+  line-height: 1.65;
+}
+
+a {
+  text-decoration: underline;
+}
+
+// override the default line-height for headings
+$headings: (
+  h1: var(--disw-g-line-height-xl),
+  h2: var(--disw-g-line-height-lg),
+  h3: var(--disw-g-line-height-md),
+);
+
+@each $heading, $lineHeight in $headings {
+  #{$heading} {
+    line-height: $lineHeight;
+  }
+}

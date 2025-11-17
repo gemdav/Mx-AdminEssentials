@@ -1,2 +1,30 @@
 @import '../../../theme/web/custom-variables';
 
+/*
+ * List adjustments
+ */
+
+.empty-hide-list {
+    ul {
+        .mx-listview-empty {
+            display: none !important;
+        }
+    }
+}
+
+.unpadded-list {
+    ul {
+        li {
+            padding: 0px !important;
+        }
+    }
+}
+
+.seamless-list {
+    ul {
+        margin-bottom: 0px !important;
+        li {
+            border: none !important;
+        }
+    }
+}

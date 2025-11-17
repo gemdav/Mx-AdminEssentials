@@ -1,0 +1,24 @@
+{
+    "excludes": {
+        "Atlas_Core": {
+            "layouts": true
+        },
+        "Atlas_Web_Content": {
+            "layouts": true,
+            "pageTemplates": true,
+            "buildingBlocks": true
+        },
+        "Encryption": {
+            "layouts": true
+        },
+        "MxModelReflection": {
+            "layouts": true
+        },
+        "EmailTemplate": {
+            "layouts": true
+        },
+        "OIDC": {
+            "layouts": true
+        }
+    }
+}

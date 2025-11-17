@@ -1,0 +1,53 @@
+@use "./mixins" as *;
+
+.widget-language-selector {
+  font-weight: var(--font-weight-semibold);
+
+  .language-arrow {
+    display: none;
+  }
+
+  .popupmenu-trigger {
+    @include resetStyles;
+    @include createLanguageIconStyles;
+
+    &:hover {
+      color: var(--link-hover-color);
+    }
+  }
+
+  .popupmenu-menu {
+    gap: var(--disw-g-spacing-sm);
+    background-color: var(--popupmenu-bg);
+
+    .popupmenu-basic-item {
+      padding: var(--disw-g-spacing-md);
+      color: var(--font-color-default);
+
+      &:focus {
+        outline-width: 0;
+        border-radius: 0;
+      }
+
+      &.highlighted,
+      &:hover {
+        background-color: var(--btn-chromeless-bg-hover);
+      }
+
+      &.active {
+        background-color: var(--btn-chromeless-bg-active);
+      }
+
+      &:first-child,
+      &:last-child {
+        border-radius: 0;
+      }
+    }
+  }
+
+  .current-language-text {
+    &:focus {
+      @include resetStyles;
+    }
+  }
+}

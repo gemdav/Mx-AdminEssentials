@@ -1,0 +1,146 @@
+@use "../../base/mixins" as *;
+@use "./mixins" as *;
+
+input[type="radio"] {
+  width: 18px;
+  height: 18px;
+  z-index: 1;
+  vertical-align: middle;
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 50%;
+  background: var(--radioBtn-bg);
+  border: 1px solid var(--radioBtn-color);
+  outline-offset: 0px !important;
+
+  &:checked {
+    background: var(--radioBtn-color);
+    border: 3px solid var(--radioBtn-bg);
+    outline: 1px solid var(--radioBtn-color);
+  }
+
+  &:not(:checked):not(:disabled):hover {
+    border-width: 4px;
+  }
+
+  // reset bootstrap defaults
+  &:not(:checked):focus {
+    outline: none;
+  }
+
+  &:disabled {
+    opacity: 1; // mx sets up opacity on all disabled elements as default
+    outline-color: var(--radioBtn-disabled-color);
+    border-color: var(--radioBtn-disabled-color);
+    background: var(--radioBtn-disabled-bg);
+
+    &:checked {
+      background: var(--radioBtn-selected-disabled-bg);
+      border-color: var(--radioBtn-disabled-border-color);
+    }
+  }
+
+  + label {
+    margin: 0 var(--disw-g-spacing-sm) 0 0;
+    vertical-align: middle;
+  }
+}
+
+.radio {
+  width: fit-content;
+
+  &:has(input:focus):not(:active) {
+    outline: 5px auto var(--radioBtn-outline-color);
+    outline-offset: 3px;
+  }
+
+  position: relative;
+
+  &:has(input:disabled) {
+    label,
+    &:after {
+      color: var(--radioBtn-disabled-text-color);
+    }
+  }
+
+  &:has(input:active) {
+    &:before {
+      @include createRadioBtnActiveStyles;
+    }
+  }
+
+  label {
+    min-height: auto;
+    position: relative;
+
+    @include small-text;
+  }
+}
+
+.has-error {
+  input[type="radio"] {
+    &:not(:disabled) {
+      outline-color: var(--radioBtn-error-border-color);
+      border-color: var(--radioBtn-error-border-color);
+    }
+
+    &:checked {
+      background: var(--radioBtn-error-border-color);
+      border-color: var(--radioBtn-bg);
+    }
+
+    &:not(:checked):not(:disabled):hover {
+      border-color: var(--radioBtn-error-border-color);
+      outline-color: var(--radioBtn-error-border-color);
+    }
+  }
+
+  .radio {
+    label {
+      color: var(--radioBtn-error-text-color);
+    }
+
+    &:after {
+      @include createRadioBtnErrorIconStyles;
+    }
+  }
+}
+
+// Need to reset some data view styles
+.form-horizontal .radio {
+  padding-top: 0;
+  min-height: auto;
+  margin-bottom: var(--disw-g-spacing-md);
+  margin-right: var(--disw-g-spacing-2xl) !important;
+}
+
+.mx-radiobuttons {
+  .radio {
+    input[type="radio"] {
+      position: relative;
+      margin-top: 0;
+    }
+  }
+
+  // read only styles
+  .form-control-static {
+    @include createReadOnlyStyles;
+  }
+  
+  .alert {
+    @include createValidationMessageStyles;
+  }
+
+  &:has([disabled]) {
+    label {
+      color: var(--textBox-disabled-color);
+    }
+
+    &:has([aria-required="true"]),
+    &.aria-required {
+      label.control-label:before {
+        color: var(--textBox-disabled-color);
+      }
+    }
+  }
+}

@@ -1,0 +1,30 @@
+.mxfeedback-button {
+  &.btn-primary {
+    color: var(--btn-primary-color);
+    background-color: var(--btn-primary-bg);
+  }
+
+  &.btn-secondary {
+    color: var(--btn-chromeless-color);
+    background-color: var(--btn-chromeless-bg);
+  }
+}
+
+.mx-demouserswitcher-content,
+.mx-demouserswitcher-toggle {
+  background-color: var(--demo-switcher-bg);
+}
+
+.mx-demouserswitcher {
+  h2,
+  p {
+    color: #ffffff;
+  }
+
+  .active {
+    h3,
+    p {
+      color: var(--demo-switcher-active-text);
+    }
+  }
+}

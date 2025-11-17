@@ -1,0 +1,195 @@
+@use "./mixins" as *;
+
+.mx-textbox,
+.mx-textarea {
+  position: relative;
+
+  // base input styles
+  input,
+  textarea {
+    &.form-control:not([disabled]) {
+      @include input-pseudo;
+    }
+
+    &[disabled] {
+      border-color: var(--textBox-disabled-border-color);
+      color: var(--textBox-disabled-color);
+    }
+  }
+
+  &:has([disabled]) {
+    label {
+      color: var(--textBox-disabled-color);
+    }
+
+    &:has([aria-required="true"]),
+    &.aria-required {
+      label.control-label:before {
+        color: var(--textBox-disabled-color);
+      }
+    }
+  }
+
+  // add asterisk for required
+  &:has([aria-required="true"]),
+  &.aria-required {
+    label.control-label:before {
+      @include createAsteriskIconStyles;
+    }
+  }
+
+  // error state styles
+  &.has-error {
+    label,
+    label::before {
+      color: var(--textBox-error-color);
+    }
+
+    &:after {
+      @include createErrorIconStyles;
+    }
+
+    &:has(label) {
+      &:after {
+        top: 25px;
+      }
+    }
+
+    input,
+    textarea {
+      border-color: var(--textBox-error-border-color);
+      background-color: var(--textBox-error-bg);
+
+      &.form-control {
+        @include input-error-pseudo;
+      }
+    }
+
+    .mx-validation-message {
+      @include createValidationMessageStyles;
+    }
+
+    &:has([aria-required="true"]),
+    &.aria-required {
+      label.control-label:before {
+        color: var(--textBox-error-color);
+      }
+    }
+  }
+
+  // dirty state styles
+  &.dirty {
+    input,
+    textarea {
+      background-color: var(--textBox-dirty-bg);
+    }
+  }
+
+  // read only styles
+  .form-control-static {
+    @include createReadOnlyStyles;
+  }
+
+  // Additional class names
+
+  // Initially, show as text. When clicked, show as focused input field
+  &.input-as-text {
+    .form-control {
+      @include createInputAsTextStyles;
+      @include animationTransition;
+      cursor: pointer;
+
+      &:active, &:hover, &:focus {
+        font-size: var(--disw-g-font-size-xs);
+        line-height: var(--disw-g-line-height-sm);
+
+        & + .mx-textarea-counter {
+          opacity: 1;
+        }
+      }
+    }
+
+    textarea {
+      &.form-control {
+        padding-bottom: var(--disw-g-spacing-3xl);
+      }
+    }
+
+    .mx-textarea-counter {
+      top: inherit;
+      bottom: 0;
+      padding: var(--disw-g-spacing-sm);
+      width: inherit;
+      opacity: 0;
+    }
+
+    .mx-validation-message {
+      padding: var(--disw-g-spacing-sm) var(--disw-g-spacing-md);
+      margin-top: 0;
+    }
+
+    &:not(:has(.control-label)):has(.mx-textarea-counter) {
+      padding-top: 0;
+    }
+
+    &.has-error:has(label):after {
+      top: 8px;
+    }
+  }
+}
+
+// hint text styles
+.input-with-hint {
+  .form-group {
+    margin-bottom: 0;
+  }
+
+  .hint-text {
+    @include createChildLabelStyles;
+    font-style: italic;
+    color: var(--text-hint-color);
+  }
+
+  &:has([disabled]) {
+    .hint-text {
+      color: var(--textBox-disabled-color);
+    }
+  }
+
+  &:has(.has-error) {
+    .hint-text {
+      color: var(--textBox-error-color);
+    }
+  }
+}
+
+// TextArea counter styles
+.mx-textarea {
+  .mx-textarea-counter {
+    @include createChildLabelStyles;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+  }
+
+  // if label is missing, we need to create space at top to avoid overlap for counter
+  &:not(:has(.control-label)):has(.mx-textarea-counter) {
+    & {
+      padding-top: 20px;
+    }
+  }
+}
+
+::placeholder {
+  color: var(--placeholder-color) !important;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="password"] {
+  &.form-control:not([disabled]) {
+    @include input-pseudo;
+  }
+}

@@ -1,0 +1,126 @@
+@mixin resetCheckbox {
+  -webkit-user-select: none;
+  user-select: none;
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  margin: 0;
+  opacity: 1;
+}
+
+@mixin createDefaultCheckboxStyles {
+  content: "";
+  width: 100%;
+  height: 100%;
+  border: 1px solid var(--checkbox-border-color);
+  background-color: var(--checkbox-unchecked-bg);
+  border-radius: var(--disw-g-border-radius-lg);
+  display: block;
+}
+
+@mixin createCheckboxCheckedStyles {
+  content: "";
+  transform: rotate(-45deg);
+  border: 2px solid var(--checkbox-arrow-color);
+  margin: 0;
+  width: 12px;
+  height: 5px;
+  border-top: 0;
+  border-right: 0;
+  pointer-events: none;
+  display: block;
+  position: absolute;
+}
+
+// Checkbox component
+.mx-checkbox input[type="checkbox"] {
+  position: relative;
+  margin: 0;
+
+  &:not(:active):focus-within {
+    outline: 2px solid var(--checkbox-outline-color);
+    outline-offset: 2px;
+  }
+}
+
+input[type="checkbox"],
+input[type="checkbox"].three-state-checkbox {
+  height: 18px;
+  width: 18px;
+  position: relative;
+
+  @include resetCheckbox;
+
+  // Base checkbox appearance
+  &::before {
+    @include createDefaultCheckboxStyles;
+  }
+
+  // Checked state
+  &:checked {
+    &::before {
+      background-color: var(--checkbox-checked-bg);
+      border: 0 none;
+    }
+
+    &::after {
+      @include createCheckboxCheckedStyles;
+      top: 5px;
+      left: 3px;
+    }
+  }
+
+  &:indeterminate:before {
+    background-color: var(--checkbox-checked-bg);
+  }
+
+  &:indeterminate:after {
+    border-color: var(--checkbox-unchecked-bg) !important;
+    margin: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  &:focus {
+    outline: 2px solid var(--checkbox-outline-color);
+    outline-offset: 2px;
+  }
+
+  // Label spacing
+  + .control-label {
+    margin-left: var(--disw-g-spacing-md);
+    cursor: pointer;
+  }
+
+  // Interactive states for enabled checkboxes
+  &:not(:disabled) {
+    // Hover state
+    &:not(:checked):hover::before {
+      border: 4px solid var(--checkbox-checked-bg);
+    }
+
+    &:not(:checked):not(:indeterminate):hover::after {
+      display: none;
+    }
+
+    // Active state
+    &:active::before {
+      box-shadow: 0px 0px 0px 22px var(--checkbox-active-shadow-color);
+      clip-path: circle(120%);
+    }
+  }
+
+  &:disabled {
+    &::before {
+      border: 1px solid var(--checkbox-disabled-border-color);
+      background-color: var(--checkbox-disabled-bg);
+    }
+
+    + .control-label {
+      color: var(--checkbox-disabled-text-color);
+      cursor: not-allowed;
+    }
+  }
+}

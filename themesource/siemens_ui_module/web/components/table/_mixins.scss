@@ -1,0 +1,25 @@
+/* ==========================================================================
+  Datagrid 2
+========================================================================== */
+
+@mixin SettingsBtnPlacement {
+  position: absolute;
+  top: calc(var(--disw-g-spacing-lg) - 3px);
+  right: var(--disw-g-spacing-lg);
+}
+
+@mixin CreateStatus {
+  &::before {
+    content: "";
+    position: absolute;
+    width: 4px;
+    height: 100%;
+    left: var(--disw-g-spacing-xs);
+  }
+}
+
+@mixin TableCompact {
+  padding-top: var(--disw-g-spacing-sm);
+  padding-right: var(--disw-g-spacing-sm);
+  padding-bottom: var(--disw-g-spacing-sm);
+}

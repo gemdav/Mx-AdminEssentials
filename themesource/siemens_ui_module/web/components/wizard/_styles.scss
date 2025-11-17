@@ -1,0 +1,178 @@
+@use "./mixins" as *;
+@use "../../disw_base-variables" as *;
+
+// Progress Bar breadcrumbs (based on Atlas wizard)
+.wizard {
+  .widget-tooltip-content {
+    min-width: max-content;
+  }
+
+  &.wizard-arrow {
+    .wizard-step {
+      height: 32px;
+      padding-left: var(--disw-g-spacing-2xl);
+      padding-right: var(--disw-g-spacing-3xl);
+      background-color: var(--breadcrumb-item-bg);
+      border-color: var(--breadcrumb-item-border-color);
+
+      .wizard-step-text {
+        font-size: var(--disw-g-font-size-xs);
+        color: var(--font-color-default);
+        font-weight: normal;
+        text-align: center;
+        width: 100%;
+      }
+
+      &::before {
+        border-width: 16px; // half of height
+        border-left-color: var(--breadcrumb-item-border-color);
+      }
+
+      &::after {
+        border-width: calc((32px / 2) - 1px); // half of height minus 1
+        border-left-color: var(--breadcrumb-item-bg);
+      }
+
+      &:first-child {
+        border-top-left-radius: $wizard-border-radius;
+        border-bottom-left-radius: $wizard-border-radius;
+      }
+
+      &:last-child {
+        border-top-right-radius: $wizard-border-radius;
+        border-bottom-right-radius: $wizard-border-radius;
+        padding-right: var(--disw-g-spacing-2xl);
+      }
+
+      &-visited {
+        .wizard-step-text {
+          font-weight: bold;
+          color: var(--link-color);
+        }
+      }
+
+      &-active {
+        background-color: var(--breadcrumb-item-active-bg);
+
+        .wizard-step-text {
+          color: var(--breadcrumb-item-active-color);
+        }
+
+        &::after {
+          border-left-color: var(--breadcrumb-item-active-bg);
+        }
+      }
+    }
+
+    // When 'expanded' class is being used on a smaller screen
+    @media (max-width: $screen-sm-max) {
+      &.expanded {
+        .wizard-step {
+          @include BreadcrumbsProgressBarLine;
+          position: relative;
+          z-index: 1;
+          background: transparent;
+          border: none;
+          margin-left: 0;
+          padding: 0;
+          justify-content: center;
+          height: $wizard-circle-size;
+          width: 100%;
+
+          &:first-child {
+            &::before, &::after {
+              display: none;
+            }
+          }
+
+          .wizard-step-text {
+            background: var(--breadcrumb-item-bg-expanded);
+            border-radius: $wizard-border-radius;
+            width: $wizard-circle-size;
+            height: $wizard-circle-size;
+            line-height: var(--disw-g-line-height-md);
+            text-align: center;
+            margin-bottom: 0;
+          }
+
+          &-visited, &-active {
+            @include BreadcrumbsProgressBarLine_Visited;
+
+            .wizard-step-text {
+              background: var(--breadcrumb-item-bg-active-expanded);
+              color: var(--breadcrumb-item-active-color);
+              font-weight: bold;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Progress stepper variation w/ circle
+  &.wizard-circle {
+    .wizard-step {
+      @include BreadcrumbsProgressBarLine;
+      position: relative;
+      z-index: 1;
+
+      .wizard-step-number {
+        font-size: var(--disw-g-font-size-xs);
+        background: var(--breadcrumb-item-bg-expanded);
+        color: var(--font-color-default);
+        width: $wizard-circle-size;
+        height: $wizard-circle-size;
+      }
+
+      &-visited, &-active {
+        @include BreadcrumbsProgressBarLine_Visited;
+
+        .wizard-step-number {
+          background: var(--breadcrumb-item-bg-active-expanded);
+          color: var(--breadcrumb-item-active-color);
+          font-weight: bold;
+        }
+      }
+
+      &:first-child {
+        &::before, &::after {
+          display: none;
+        }
+      }
+    }
+
+    &-vertical {
+      flex-direction: column;
+      width: $wizard-circle-size;
+
+      .wizard-step {
+        @include BreadcrumbsProgressBarLine_Vertical;
+        height: 74px;
+
+        &:first-child {
+          &::before, &::after {
+            display: block;
+          }
+        }
+
+        &:last-child {
+          height: max-content;
+
+          &::before, &::after {
+            display: none;
+          }
+        }
+
+        &-visited {
+          @include BreadcrumbsProgressBarLine_Visited_Vertical;
+        }
+
+        &-active {
+          &::after {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}

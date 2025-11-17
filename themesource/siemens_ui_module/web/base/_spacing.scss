@@ -1,0 +1,40 @@
+$sizes: (
+  xs: var(--disw-g-spacing-sm),
+  xl: var(--disw-g-spacing-3xl),
+  xxl: var(--disw-g-spacing-4xl),
+);
+
+$gapSizes: (
+  sm: var(--disw-g-spacing-sm),
+  md: var(--disw-g-spacing-md),
+  lg: var(--disw-g-spacing-lg),
+  xl: var(--disw-g-spacing-xl),
+  2xl: var(--disw-g-spacing-2xl),
+  3xl: var(--disw-g-spacing-3xl),
+);
+
+$sides: (
+  top: top,
+  right: right,
+  bottom: bottom,
+  left: left,
+);
+
+// Generate spacing classes
+@each $size, $sizeValue in $sizes {
+  @each $side, $sideValue in $sides {
+    .spacing-inner-#{$side}-#{$size} {
+      padding-#{$side}: $sizeValue;
+    }
+    .spacing-outer-#{$side}-#{$size} {
+      margin-#{$side}: $sizeValue;
+    }
+  }
+}
+
+// Generate spacing classes
+@each $size, $sizeValue in $gapSizes {
+  .flex-gap-#{$size} {
+    gap: $sizeValue;
+  }
+}

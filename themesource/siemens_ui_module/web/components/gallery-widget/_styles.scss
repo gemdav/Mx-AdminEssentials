@@ -1,0 +1,29 @@
+@use "./mixins" as *;
+
+.widget-gallery {
+  // Grid spacing small
+  @each $size, $sizeValue in $gapSizes {
+    &.widget-gallery-gridgap-#{$size} {
+      .widget-gallery-items {
+        gap: var(--disw-g-spacing-#{$sizeValue});
+      }
+    }
+  }
+
+  .widget-gallery-clickable:hover {
+    background-color: var(--cell-hover-bg);
+  }
+
+  &:not(.widget-gallery-disable-selected-items-highlight)
+    .widget-gallery-item.widget-gallery-clickable.widget-gallery-selected {
+    background-color: var(--cell-selected-bg);
+
+    &:hover {
+      background-color: var(--cell-selected-hover-bg);
+    }
+  }
+
+  &-filter {
+    margin-bottom: var(--disw-g-spacing-lg);
+  }
+}

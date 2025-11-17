@@ -1,0 +1,22 @@
+@mixin AvatarSize($size) {
+  border-radius: 50%;
+  min-width: $size;
+  min-height: $size;
+  width: $size;
+  height: $size;
+
+  .avatar-img {
+    img {
+      width: $size;
+      height: $size;
+    }
+  }
+
+  .avatar-placeholder-icon {
+    span {
+      font-size: calc(
+        $size / 2
+      ) !important; // overwrite inline styling of icons used in images
+    }
+  }
+}

@@ -1,0 +1,13 @@
+/* ==========================================================================
+   Elevation
+
+========================================================================== */
+
+$elevations: 1, 2, 3, 4, 5;
+
+// Generate elevation classes
+@each $elevation in $elevations {
+  .elevation-#{$elevation} {
+    box-shadow: var(--disw-g-elevation-#{$elevation});
+  }
+}

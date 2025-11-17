@@ -1,0 +1,88 @@
+@mixin btn-base($border-color, $bg-color, $color) {
+  border-color: $border-color;
+  background-color: $bg-color;
+  color: $color;
+  text-shadow: none;
+}
+
+@mixin btn-base-pseudo(
+  $border-color,
+  $hover-color,
+  $focus-color,
+  $active-color,
+  $hover-text-color
+) {
+  &:focus,
+  &:hover,
+  &:active {
+    border-color: $border-color;
+  }
+
+  &:focus {
+    background-color: $focus-color;
+    box-shadow: var(--disw-g-elevation-2);
+  }
+  &:hover {
+    background-color: $hover-color;
+    box-shadow: var(--disw-g-elevation-3);
+    color: $hover-text-color;
+  }
+  &:active {
+    background-color: $active-color;
+    box-shadow: var(--disw-g-elevation-2);
+  }
+}
+
+@mixin btn-variation-pseudo($border-color, $bg-focus-color, $bg-active-color) {
+  &:focus,
+  &:hover,
+  &:active {
+    border-color: $border-color;
+  }
+
+  &:focus {
+    background-color: $bg-focus-color;
+    box-shadow: var(--disw-g-elevation-2);
+  }
+
+  &:hover {
+    box-shadow: var(--disw-g-elevation-3);
+  }
+
+  &:active {
+    background-color: $bg-active-color;
+    box-shadow: var(--disw-g-elevation-2);
+  }
+}
+
+@mixin btn-disabled($bg-color: var(--btn-disabled-bg)) {
+  &.disabled,
+  &[disabled],
+  &[aria-disabled] {
+    background-color: $bg-color;
+    color: var(--btn-disabled-color);
+    border-color: var(--btn-disabled-border-color);
+    opacity: 1;
+    outline: none;
+    box-shadow: none;
+  }
+}
+
+@mixin btn-chromeless {
+  border: 0 none transparent;
+  box-shadow: none;
+
+  &:hover {
+    background: var(--btn-chromeless-bg-hover);
+    box-shadow: none;
+  }
+
+  &:focus {
+    box-shadow: none;
+  }
+
+  &:active {
+    box-shadow: none;
+    background: var(--btn-chromeless-bg-active);
+  }
+}

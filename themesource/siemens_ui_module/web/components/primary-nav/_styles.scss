@@ -1,0 +1,352 @@
+@use "./mixins" as *;
+
+.application-frame-left-nav {
+  transition: flex-basis 0.2s, width 0.2s;
+
+  // overriding default buttons for primary nav
+  .btn {
+    @include navbar-item;
+    @include createNavBarItemPseudoStyles;
+
+    // for menu collapse button
+    &.menu-collapse {
+      font-size: var(--disw-g-font-size-md);
+      line-height: var(--disw-g-line-height-md);
+    }
+  }
+
+  .widget-badge {
+    @include alert-badge;
+
+    position: absolute;
+    top: 0;
+    left: 50%;
+  }
+
+  // nav bar container
+  .navbar-container {
+    overflow-y: auto;
+    scrollbar-width: none;
+
+    // widget placeholder adds two divs
+    .mx-placeholder {
+      display: flex;
+      justify-content: center;
+    }
+
+    .top-section {
+      margin-bottom: var(--disw-g-spacing-4xl);
+
+      .secondary-nav {
+        visibility: hidden;
+      }
+    }
+
+    .nav-bottom-section {
+      margin-top: auto;
+    }
+
+    .navbar {
+      &.navbar-default {
+        background-color: transparent;
+        border: 0 none;
+        margin: 0;
+
+        .navbar-nav {
+          width: 100%;
+          margin: 0;
+
+          li {
+            width: 100%;
+            max-width: 64px;
+            text-align: center;
+
+            a {
+              text-decoration: none;
+              @include navbar-item;
+
+              min-width: var(--navsidebar-width-closed);
+              text-wrap: wrap;
+              padding: var(--disw-g-spacing-md);
+            }
+
+            &:not(.active) {
+              a {
+                @include createNavBarItemPseudoStyles;
+              }
+            }
+
+            &.active {
+              @include createNavBarItemActiveState;
+            }
+
+            .dropdown-menu {
+              background-color: var(--navsidebar-active-bg);
+              z-index: 1;
+            }
+          }
+        }
+      }
+    }
+
+    // making image look like nav item
+    .nav-item-image img {
+      padding: var(--disw-g-spacing-md) var(--disw-g-spacing-xl);
+
+      @include createNavBarItemPseudoStyles;
+    }
+
+    .secondary-nav {
+      width: 100%;
+
+      .btn.active {
+        @include createNavBarItemActiveState;
+      }
+    }
+  }
+
+  .more-button {
+    flex-direction: row-reverse;
+    width: 64px;
+
+    span[class*="Icon"] {
+      font-size: 8px; // We don't have token
+      line-height: var(--disw-g-line-height-xxs);
+      &:before {
+        vertical-align: middle;
+        margin-left: var(--disw-g-spacing-sm);
+      }
+    }
+  }
+
+  // Toggle buttons
+  .menu-expand {
+    display: none;
+    align-items: center;
+  }
+
+  .menu-collapse {
+    display: none;
+    flex-direction: row;
+    flex-grow: 1;
+    padding-left: 0;
+    justify-content: space-between !important;
+  }
+}
+
+// very narrow view port
+@media screen and (max-height: 300px) {
+  .nav-bottom-section,
+  .top-nav-container,
+  .more-button {
+    display: none !important;
+  }
+  .menu-expand {
+    display: flex !important;
+  }
+  .nav-item-image {
+    width: auto;
+  }
+
+  .top-nav-container {
+    margin-bottom: 0;
+  }
+
+  .application-frame {
+    .navbar-container {
+      gap: 0;
+
+      .top-section {
+        margin-bottom: 0;
+      }
+
+      .navbar.navbar-default .navbar-nav li {
+        max-width: 100%;
+
+        a {
+          @include mobile-navbar-item;
+
+          &:before {
+            @include right-arrow;
+
+            position: absolute;
+            right: var(--disw-g-spacing-2xl);
+          }
+        }
+      }
+
+      .mx-placeholder {
+        justify-content: flex-start;
+      }
+
+      .top-section {
+        .secondary-nav {
+          visibility: visible;
+        }
+      }
+
+      .secondary-nav {
+        .badge-container {
+          display: flex;
+          align-items: center;
+
+          .widget-badge {
+            left: auto;
+            right: var(--disw-g-spacing-2xl);
+            top: 50%;
+            transform: translateY(-50%);
+          }
+
+          .btn::before {
+            display: none;
+          }
+        }
+
+        .btn {
+          flex-direction: row;
+          gap: var(--disw-g-spacing-2xl);
+          padding: var(--disw-g-spacing-sm) 0 var(--disw-g-spacing-sm)
+            var(--disw-g-spacing-2xl);
+          font-size: var(--disw-g-font-size-md);
+          line-height: var(--disw-g-line-height-md);
+          justify-content: flex-start;
+
+          &:before {
+            content: "\e91e";
+            position: absolute;
+            right: var(--disw-g-spacing-2xl);
+            display: inline-block;
+            font-style: normal;
+            font-weight: normal;
+            line-height: 1;
+            font-family: var(--font-family-common-icon);
+          }
+        }
+      }
+    }
+  }
+}
+
+// nav bar expanded states
+.full-expanded-nav {
+  --sidebar-size: 320px !important;
+  width: 320px !important;
+
+  .menu-expand {
+    display: none !important;
+  }
+  .menu-collapse {
+    display: flex;
+  }
+
+  .top-nav-container {
+    display: block !important;
+  }
+}
+
+.mid-expanded-nav {
+  --sidebar-size: 128px !important;
+  width: 128px !important;
+
+  .secondary-nav {
+    visibility: visible !important;
+  }
+}
+
+.hide-nav {
+  display: none;
+}
+
+// Allowing icon size to be changed with dynamic property
+span[class*="Icon"],
+span[class*="mx-icon"] {
+  font-size: 16px; // Add 16px entry in css variables
+}
+
+.icons-24 {
+  span[class*="Icon"],
+  div[class*="Icon"],
+  span[class*="mx-icon"],
+  div[class*="mx-icon"] {
+    font-size: 24px;
+  }
+}
+
+.disw-nav-panel-subsection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--disw-g-spacing-xs);
+  padding: var(--disw-g-spacing-md) 0;
+
+  .mx-button {
+    justify-content: inherit;
+  }
+
+  &:not(:last-child) {
+    border-bottom: 1px solid var(--border-color-default);
+  }
+}
+
+.navbar-default {
+  background-color: transparent;
+  border: 0 none;
+  margin: 0;
+
+  .navbar-nav > li > a {
+    color: var(--font-color-default);
+
+    &:hover {
+      background-color: var(--navsidebar-hover-bg);
+      color: var(--font-color-default);
+    }
+
+    &:focus {
+      background-color: transparent;
+      color: var(--font-color-default);
+    }
+  }
+
+  .navbar-nav > .open > a {
+    background-color: var(--navsidebar-active-bg);
+    color: var(--font-color-default);
+
+    &:hover,
+    &:focus {
+      background-color: var(--navsidebar-active-bg);
+      color: var(--font-color-default);
+    }
+  }
+
+  .navbar-nav > .active > a {
+    background-color: var(--navsidebar-selected-bg);
+    color: var(--font-color-default);
+
+    &:hover,
+    &:focus {
+      background-color: var(--navsidebar-selected-bg);
+      color: var(--font-color-default);
+    }
+  }
+
+  .dropdown-menu {
+    background-color: var(--navsidebar-active-bg);
+
+    > li > a {
+      padding: var(--disw-g-spacing-xl);
+      color: var(--font-color-default);
+
+      &:hover {
+        background-color: var(--navsidebar-hover-bg);
+      }
+    }
+
+    .active a {
+      background-color: var(--navsidebar-selected-bg);
+      color: var(--font-color-default);
+
+      &:hover {
+        background-color: var(--navsidebar-selected-bg);
+      }
+    }
+  }
+}

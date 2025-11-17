@@ -1,0 +1,12 @@
+@use "../../disw_base-variables" as *;
+
+// pinning is not needed in mobile
+@media (max-width: $screen-md) {
+  .disw-panel {
+    .header {
+      .icon-pin {
+        display: none;
+      }
+    }
+  }
+}

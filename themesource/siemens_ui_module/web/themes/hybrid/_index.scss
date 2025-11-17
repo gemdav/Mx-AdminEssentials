@@ -1,0 +1,21 @@
+@use "./variables_light" as *;
+@use "./variables_dark" as *;
+
+body:not([data-brand="legacy"]),
+body[data-theme="light"]:not([data-brand="legacy"]),
+.theme-light {
+  @include theme-light-variables;
+}
+
+body[data-theme="dark"]:not([data-brand="legacy"]),
+.theme-dark {
+  color-scheme: dark; // for scroll bars in supported browsers
+  @include theme-dark-variables;
+}
+
+@media (prefers-color-scheme: dark) {
+  body:not([data-brand="legacy"]) {
+    color-scheme: dark; // for scroll bars in supported browsers
+    @include theme-dark-variables;
+  }
+}

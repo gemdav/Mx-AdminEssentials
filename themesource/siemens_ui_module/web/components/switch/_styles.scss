@@ -1,0 +1,109 @@
+@use "./mixins" as *;
+
+// using really generic way as label component with switch renders outside widget-switch
+div[class^="mx-name-switch"] {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--disw-g-spacing-md);
+  width: fit-content;
+
+  @include labelStyles;
+  @include disabledLabelStyles;
+  @include focusStyles;
+
+  &:has(.disabled) {
+    &:focus-within {
+      @include resetOutline;
+    }
+  }
+
+  &.form-group.no-columns {
+    flex-direction: row;
+  }
+}
+
+.widget-switch {
+  display: inline-flex;
+
+  // Size styles
+  @include sizeStyles("default");
+  .switch-sm & {
+    @include sizeStyles("sm");
+  }
+  .switch-lg & {
+    @include sizeStyles("lg");
+  }
+
+  .widget-switch-btn-wrapper {
+    margin: 0;
+    transform-style: preserve-3d;
+
+    .widget-switch-btn {
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: var(--switch-btn-unchecked-color);
+      transform-style: preserve-3d; // to create stack of element and pseudo element
+      box-shadow: none;
+
+      &.left {
+        left: 2px !important;
+
+        &:active {
+          border-radius: inherit !important; // override mx default styles
+        }
+      }
+    }
+
+    &.un-checked {
+      border-color: var(--switch-unchecked-border-color);
+      background-color: var(--switch-unchecked-bg);
+    }
+
+    &.checked {
+      @include createCheckedStyles;
+
+      .widget-switch-btn {
+        background-color: var(--switch-btn-checked-color);
+      }
+
+      &.disabled {
+        @include createCheckedStyles(
+          var(--switch-disabled-checked-bg),
+          var(--switch-disabled-color)
+        );
+      }
+    }
+
+    &.disabled {
+      opacity: 1;
+      cursor: not-allowed;
+      border-color: var(--switch-disabled-color);
+      background-color: var(--switch-disabled-bg);
+
+      .widget-switch-btn {
+        background-color: var(--switch-disabled-color);
+      }
+    }
+
+    &:focus {
+      @include resetOutline;
+    }
+
+    &:not(.disabled):active {
+      .widget-switch-btn:before {
+        @include createPseudoCircleBg;
+      }
+    }
+  }
+
+  // TODO remove this when we update our atlas core
+  input[type="checkbox"].sr-only {
+    position: absolute !important;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px !important;
+    overflow: hidden;
+  }
+}

@@ -1,0 +1,89 @@
+@use "../../base/mixins" as *;
+@use "./mixins" as *;
+
+// Individual segmented button
+.btn.segmented {
+  border: 1px solid var(--segmented-btn-border-color);
+  border-radius: 0px;
+  padding: var(--disw-g-spacing-md);
+  color: var(--segmented-btn-color);
+  font-weight: var(--font-weight-light);
+  flex-direction: column;
+  min-width: 34px;
+  position: relative;
+
+  @include small-text;
+
+  // Icon styling
+  span {
+    color: var(--segmented-btn-icon-color);
+  }
+
+  // State styling
+  @include generateSegmentedButtonStates;
+
+  // Selected state
+  &.selected {
+    background-color: var(--segmented-btn-selected-bg);
+    color: var(--segmented-btn-selected-color);
+    pointer-events: none;
+    z-index: 1;
+
+    span {
+      color: var(--segmented-btn-selected-icon-color);
+    }
+  }
+
+  // Disabled state
+  &.disabled {
+    background-color: var(--btn-disabled-bg);
+    color: var(--btn-disabled-color);
+    border-color: var(--btn-disabled-border-color);
+    cursor: not-allowed;
+
+    span {
+      color: var(--segmented-btn-icon-disabled-color);
+    }
+  }
+
+  // Large button variant
+  &.btn-lg {
+    min-width: 190px;
+
+    span[class*="Icon"],
+    span[class*="mx-icon"] {
+      font-size: 48px;
+    }
+
+    img {
+      height: 48px;
+    }
+  }
+}
+
+// Segmented button container
+.disw-segmented-button-container {
+  display: flex;
+  flex-wrap: nowrap;
+
+  .btn {
+    &.selected {
+      position: relative;
+    }
+
+    &:not(:last-child) {
+      border-right-width: 0;
+    }
+  }
+
+  // First and last button border-radius
+  .btn:first-child {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+  }
+
+  .btn:last-child {
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+  }
+}

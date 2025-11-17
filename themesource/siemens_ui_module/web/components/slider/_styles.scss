@@ -1,0 +1,158 @@
+@use "./mixins" as *;
+
+.disw-slider,
+[class^="mx-name-slider"] {
+  margin-bottom: 0;
+
+  &:has([disabled]),
+  &:has(.rc-slider-disabled) {
+    label {
+      color: var(--textBox-disabled-color);
+    }
+
+    &:has([aria-required="true"]),
+    &.aria-required {
+      label.control-label:before {
+        color: var(--textBox-disabled-color);
+      }
+    }
+  }
+
+  .widget-slider {
+    .rc-slider {
+      .rc-slider-rail {
+        background-color: var(--slider-bg);
+      }
+
+      .rc-slider-mark-text {
+        color: var(--font-color-default);
+      }
+
+      .rc-slider-handle {
+        height: 16px;
+        width: 16px;
+      }
+
+      // ticks/markers
+      .rc-slider-dot {
+        @include createDotStyles;
+
+        &:first-child,
+        &:last-child {
+          display: none; // we are not showing fist and last ticks
+        }
+      }
+
+      // Non-disabled state
+      &:not(.rc-slider-disabled) {
+        .rc-slider-track {
+          background-color: var(--slider-track-bg);
+        }
+
+        .rc-slider-handle {
+          @include createHandleStyles;
+
+          &:hover {
+            background-color: var(--slider-handle-hover-bg);
+          }
+
+          &:active {
+            background-color: var(--slider-handle-active-bg);
+          }
+        }
+      }
+
+      // Disabled state
+      &.rc-slider-disabled {
+        .rc-slider-track {
+          background-color: var(--slider-track-disabled-bg);
+        }
+
+        .rc-slider-handle {
+          border: 0 none;
+          background-color: var(--slider-handle-disabled-bg);
+        }
+
+        .rc-slider-dot {
+          background-color: var(--slider-handle-disabled-bg);
+        }
+
+        .rc-slider-mark-text {
+          color: var(--textBox-disabled-color);
+        }
+      }
+
+      // Vertical slider
+
+      &.rc-slider-vertical {
+        padding: 0 var(--disw-g-spacing-sm);
+
+        .rc-slider-dot {
+          height: 1px;
+          width: 6px;
+          left: -4px;
+          margin-bottom: 33%;
+        }
+
+        .rc-slider-handle {
+          margin-left: -6px;
+        }
+
+        .rc-slider-track {
+          left: 4px;
+        }
+      }
+    }
+  }
+}
+
+// Tooltip styles
+.rc-slider-tooltip {
+  .rc-slider-tooltip-inner {
+    @include createTooltipStyles;
+  }
+
+  .rc-slider-tooltip-arrow {
+    border-top-color: var(--popupmenu-bg);
+    border-width: 6px 6px 0;
+    bottom: 3px;
+    margin-left: -5px;
+  }
+}
+
+// Slider with buttons
+.disw-slider-with-buttons {
+  label {
+    position: relative;
+    left: -20px;
+  }
+
+  &.vertical {
+    label {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  }
+
+  .widget-slider {
+    margin: 0px var(--disw-g-spacing-xl) var(--disw-g-spacing-xl);
+    padding: var(--disw-g-spacing-sm);
+
+    &.widget-slider-vertical {
+      margin: var(--disw-g-spacing-xl) 0;
+    }
+  }
+
+  // need to override the button sizes
+  .btn.btn-primary.btn-base {
+    height: 20px;
+    width: 20px;
+    padding: 4px;
+
+    span[class*="Icon"],
+    span[class*="mx-icon"] {
+      font-size: var(--disw-g-font-size-xxs);
+    }
+  }
+}

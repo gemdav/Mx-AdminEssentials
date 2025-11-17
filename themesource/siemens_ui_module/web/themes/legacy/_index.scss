@@ -1,0 +1,18 @@
+@use "./variables_dark" as *;
+@use "./variables_light" as *;
+
+body[data-brand="legacy"],
+body[data-brand="legacy"] .theme-light {
+  @include theme-light-variables;
+}
+
+body[data-brand="legacy"] .theme-dark,
+body[data-brand="legacy"][data-theme="dark"] {
+  @include theme-dark-variables;
+}
+
+@media (prefers-color-scheme: dark) {
+  body[data-brand="legacy"] {
+    @include theme-dark-variables;
+  }
+}

@@ -1,0 +1,51 @@
+@use "./mixins" as *;
+
+label {
+  font-weight: var(--font-weight-light);
+  color: var(--label-default-color);
+  background-color: transparent;
+
+  @include createLabelSize;
+
+  @each $size, $value in $labelSizes {
+    @include generateLabelSizeClasses($size, $value);
+  }
+
+  @each $color, $value in $labelColors {
+    @include generateLabelColorClasses($color, $value);
+  }
+
+  &.label-italic {
+    font-style: italic;
+  }
+}
+
+.label-property-value {
+  label {
+    margin-right: var(--disw-g-spacing-sm);
+  }
+
+  span {
+    @include createLabelSize(
+      var(--disw-g-font-size-xs),
+      var(--disw-g-line-height-xs)
+    );
+
+    color: var(--label-default-color);
+
+    &.text-primary {
+      font-weight: var(--font-weight-bold);
+    }
+  }
+}
+
+.has-error label {
+  color: var(--label-error-color);
+}
+
+@each $color, $value in $labelColors {
+  .text-#{$color},
+  .text-#{$color}:hover {
+    color: var(--label-#{$value}-color) !important;
+  }
+}

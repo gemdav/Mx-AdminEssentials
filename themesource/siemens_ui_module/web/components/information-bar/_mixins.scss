@@ -1,0 +1,8 @@
+@mixin information-bar-variant($variant) {
+  background: var(--information-bar-#{$variant}-bg);
+  border-color: var(--information-bar-#{$variant}-border);
+
+  .info-label {
+    color: var(--information-bar-#{$variant}-label-color);
+  }
+}

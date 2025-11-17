@@ -1,0 +1,37 @@
+@use "./mixins" as *;
+
+@media (min-width: 1080px) {
+  .mx-scrollcontainer {
+    .mx-placeholder {
+      .mx-layoutgrid, .mx-layoutgrid-fluid {
+        padding: var(--disw-g-spacing-2xl);
+      }
+    }
+  }
+}
+
+@media (max-width: calc(1079px)) {
+  .mx-scrollcontainer {
+    .mx-placeholder {
+      .mx-layoutgrid, .mx-layoutgrid-fluid {
+        padding: var(--disw-g-spacing-xl);
+      }
+    }
+  }
+}
+
+.mx-scrollcontainer {
+  .mx-placeholder {
+    .mx-layoutgrid, .mx-layoutgrid-fluid {
+      .mx-layoutgrid, .mx-layoutgrid-fluid {
+        padding: initial;
+      }
+    }
+  }
+}
+
+.mx-layoutgrid-fixed {
+  margin-left: initial;
+  
+  @include createMaxWidth;
+}

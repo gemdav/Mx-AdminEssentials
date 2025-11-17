@@ -1,0 +1,18 @@
+.disw-time-picker {
+  .widget-combobox-icon-container {
+    svg {
+      display: none;
+    }
+
+    &:before {
+      content: "\e921";
+      font-family: var(--font-family-common-icon);
+      font-size: 1rem;
+      line-height: 1rem;
+    }
+  }
+
+  .widget-combobox-input-container-disabled.form-control-static {
+    background-image: url(resources/images/cmdClockDisabled16.svg);
+  }
+}

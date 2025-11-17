@@ -1,0 +1,85 @@
+@use "../../base/mixins" as *;
+@use "./mixins" as *;
+
+.disw-information-bar {
+  // Base layout and structure
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--disw-g-spacing-xl);
+  color: var(--information-bar-color);
+
+  // Base styling
+  background: var(--information-bar-default-bg);
+  border-color: var(--information-bar-default-border);
+  border-style: solid;
+  border-width: 1px 0 1px 0;
+  padding: var(--disw-g-spacing-sm) var(--disw-g-spacing-xl);
+
+  // Typography
+  @include small-text;
+
+  // Content container
+  .content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-grow: 1;
+    gap: var(--disw-g-spacing-xl);
+
+    .info-label {
+      color: var(--information-bar-default-label-color);
+      font-weight: var(--font-weight-bold);
+    }
+
+    span {
+      vertical-align: middle;
+    }
+
+    .btn {
+      align-self: center;
+    }
+  }
+
+  // Icon/image styling
+  .mx-image-viewer {
+    display: inline-block;
+    margin-right: var(--disw-g-spacing-sm);
+    width: fit-content;
+    flex-shrink: 0;
+
+    > * {
+      display: inline;
+      vertical-align: middle; // Align with text baseline
+    }
+  }
+
+  // Close button styling
+  .close-btn {
+    padding: var(--disw-g-spacing-sm);
+    align-self: baseline;
+  }
+
+  // State variants using mixin
+  &.success {
+    @include information-bar-variant("success");
+  }
+
+  &.warning {
+    @include information-bar-variant("warning");
+  }
+
+  &.error {
+    @include information-bar-variant("error");
+  }
+
+  &.info {
+    @include information-bar-variant("info");
+  }
+
+  // banner styles
+  &.banner {
+    border-width: 1px;
+    border-radius: var(--disw-g-border-radius-md);
+  }
+}

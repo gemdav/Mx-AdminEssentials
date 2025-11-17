@@ -1,0 +1,32 @@
+.disw-empty-space {
+  padding: var(--disw-g-spacing-5xl);
+  flex-direction: column;
+  gap: var(--disw-g-spacing-xl);
+
+  .description {
+    font-style: italic;
+    color: var(--empty-state-description-color);
+  }
+
+  .main-icon {
+    color: var(--empty-state-icon-color);
+  }
+
+  .btn {
+    display: flex;
+    gap: var(--disw-g-spacing-md);
+    align-self: center;
+  }
+
+  &.border {
+    border-color: var(--empty-state-border-color) !important;
+  }
+
+  &.grey {
+    background: var(--empty-state-gray-bg);
+  }
+
+  &.small {
+    padding: var(--disw-g-spacing-md) var(--disw-g-spacing-5xl);
+  }
+}

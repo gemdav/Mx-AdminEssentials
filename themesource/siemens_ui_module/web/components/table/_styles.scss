@@ -1,0 +1,343 @@
+@use "../../base/mixins" as *;
+@use "../buttons/mixins" as *;
+@use "../input/mixins" as *;
+@use "./mixins" as *;
+
+/* ==========================================================================
+  Datagrid 2
+========================================================================== */
+
+.widget-datagrid {
+  // Placement of the settings btn
+  .datagrid-settings-btn {
+    @include SettingsBtnPlacement;
+    z-index: 1;
+
+    &:hover .btn {
+      background-color: var(--btn-default-bg-hover);
+    }
+
+    .widget-tooltip-content {
+      min-width: 160px;
+    }
+  }
+
+  .column-selector-button {
+    @include SettingsBtnPlacement;
+  }
+
+  .mx-textbox {
+    margin-bottom: inherit;
+  }
+
+  // Data Controls filters
+  .filter-container {
+    .filter-selector-button {
+      position: relative;
+      z-index: 1;
+      line-height: 1rem;
+      border-color: var(--input-border-color);
+      box-shadow: none;
+      gap: 0;
+
+      &:before {
+        width: 16px;
+        height: 16px;
+        padding-left: 0;
+      }
+    }
+
+    .react-datepicker-wrapper {
+      &:has(+ .btn-calendar) {
+        .filter-input {
+          border-right: none;
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
+        }
+      }
+    }
+
+    .btn-calendar {
+      margin-left: 0;
+      border-left: none;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      background-color: var(--textBox-bg);
+      border-color: var(--input-border-color);
+      box-shadow: none;
+
+      .button-icon {
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
+
+  .widget-dropdown-filter-toggle {
+    line-height: 1rem;
+    height: 16px;
+  }
+
+  .widget-dropdown-filter-clear {
+    padding: 0 var(--disw-g-spacing-sm);
+    margin-inline-end: var(--disw-g-spacing-sm);
+  }
+
+  .widget-datagrid-content {
+    border-radius: 3px;
+    overflow: auto;
+  }
+
+  // Design property to reset overflow auto
+  &.no-overflow {
+    .widget-datagrid-content {
+      overflow: unset;
+    }
+  }
+
+  .table {
+    background-color: var(--table-bg);
+    margin-bottom: 0px;
+
+    .tr {
+      .th {
+        padding: var(--disw-g-spacing-md);
+        background-color: var(--table-header-bg);
+
+        &:first-child {
+          padding-left: var(--disw-g-spacing-xl);
+        }
+
+        // Sorting arrow placement
+        .column-header {
+          span {
+            flex-grow: 0;
+          }
+        }
+
+        .column-selector-button {
+          height: 1.5rem;
+          width: 2rem;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+
+        .column-resizer:hover .column-resizer-bar {
+          background-color: var(--column-resizer-bg);
+        }
+      }
+
+      &:first-child:has(.td) {
+        .td {
+          border-top-color: transparent;
+        }
+      }
+
+      .td {
+        padding: var(--disw-g-spacing-md);
+
+        &:first-child {
+          padding-left: var(--disw-g-spacing-xl);
+        }
+
+        // When the DataGrid contains an element with class name "input-as-text"
+        &:has(.input-as-text) {
+          padding: 0;
+
+          &:first-child {
+            padding-left: var(--disw-g-spacing-md);
+          }
+        }
+      }
+
+      &:first-child {
+        .th:last-child {
+          .column-container {
+            margin-right: var(--disw-g-spacing-2xl);
+          }
+        }
+      }
+
+      &:nth-child(2) {
+        .td {
+          border-top: none;
+        }
+      }
+    }
+  }
+
+  &:has(.datagrid-settings-btn) {
+    .th + .th.column-selector {
+      .column-selector-button {
+        right: var(--disw-g-spacing-3xl);
+      }
+    }
+  }
+
+  .column-selectors {
+    background-color: var(--dropdown-menu-bg);
+    border: 1px solid var(--dropdown-border-color);
+    border-radius: var(--disw-g-border-radius-md);
+    box-shadow: var(--dropdown-box-shadow);
+    padding: var(--disw-g-spacing-sm) 0;
+
+    input[type="checkbox"] {
+      accent-color: var(--checkbox-checked-bg);
+    }
+
+    label {
+      @include small-text;
+    }
+
+    li[role="menuitem"] {
+      padding-left: var(--disw-g-spacing-lg);
+      padding-right: var(--disw-g-spacing-lg);
+
+      &:focus {
+        outline: 2px solid var(--btn-outline-color);
+        outline-offset: -2px;
+      }
+
+      &:hover {
+        background: var(--dropdown-multiselect-menu-item-hover);
+      }
+
+      &:active {
+        background: var(--dropdown-multiselect-menu-item-active);
+      }
+    }
+  }
+
+  // Table settings
+  &.table_banding {
+    .table .tr:nth-child(2n + 1) .td {
+      background-color: var(--table-banding-bg);
+    }
+  }
+
+  // Status colors
+  .td-custom-content {
+    position: relative;
+  }
+
+  div[class*="status_"] {
+    @include CreateStatus;
+    margin-left: var(--disw-g-spacing-lg);
+  }
+
+  .status_normal {
+    &::before {
+      background: var(--status-info-color);
+    }
+  }
+  .status_high {
+    &::before {
+      background: var(--status-warning-color);
+    }
+  }
+  .status_critical {
+    &::before {
+      background: var(--status-error-color);
+    }
+  }
+
+  // Interactions
+  &.widget-datagrid-selection-method-click,
+  &.widget-datagrid-selection-method-click.table_banding {
+    .tr {
+      &:hover .td {
+        background-color: var(--table-hover-bg);
+      }
+      &:active .td {
+        background-color: var(--table-pressed-bg);
+      }
+      &.tr-selected .td {
+        background-color: var(--table-selected-bg);
+      }
+      &.tr-selected:hover .td {
+        background-color: var(--table-selected-hover-bg);
+      }
+      &.tr-selected:active .td {
+        background-color: var(--table-selected-pressed-bg);
+      }
+    }
+  }
+
+  .widget-tooltip-content {
+    .control-label {
+      font-weight: var(--font-weight-normal);
+    }
+  }
+
+  &.table-compact {
+    .table {
+      .th,
+      .td {
+        @include TableCompact;
+      }
+    }
+
+    .column-selector-button,
+    .datagrid-settings-btn {
+      top: calc(var(--disw-g-spacing-md) - 4px);
+    }
+  }
+
+  .btn + .btn {
+    margin-left: var(--disw-g-spacing-md);
+  }
+
+  .column-selector-button {
+    border: none;
+    box-shadow: none;
+
+    &:hover,
+    &:focus {
+      box-shadow: none;
+    }
+  }
+}
+
+.filter-selectors {
+  background: var(--popupmenu-bg);
+  box-shadow: var(--dropdown-box-shadow);
+
+  .filter-listitem.filter-selected,
+  li.filter-selected {
+    background: var(--filter-selected-bg);
+    color: var(--link-color);
+  }
+
+  .filter-listitem.filter-highlighted,
+  li.filter-highlighted,
+  .filter-listitem:hover,
+  li:hover {
+    background: var(--filter-selected-bg);
+  }
+}
+
+.widget-dropdown-filter.form-control {
+  --wdf-menu-bg-color: var(--dropdown-menu-bg);
+  --wdf-popover-shadow: var(--dropdown-box-shadow);
+  --wdf-highlighted-bg-color: var(--dropdown-menu-bg);
+  --wdf-selected-bg-color: var(--filter-selected-bg);
+  --wdf-color: var(--font-color-default);
+
+  &:hover {
+    box-shadow: 0 0 0 1px var(--textBox-hover-border-color);
+    border-color: var(--textBox-hover-border-color);
+  }
+
+  &:focus {
+    @include createBorderStyles(var(--textBox-focus-border-color));
+  }
+
+  .widget-dropdown-filter-state-icon {
+    fill: var(--font-color-default);
+  }
+}
+
+.widget-dropdown-filter-menu {
+  border: 1px solid var(--dropdown-border-color);
+  background: var(--dropdown-menu-bg);
+}

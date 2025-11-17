@@ -1,0 +1,10 @@
+.accessibility-skipper {
+  position: fixed;
+  z-index: 10;
+  left: -9999px;
+  top: var(--disw-g-spacing-md);
+
+  &:focus {
+    left: var(--disw-g-spacing-md);
+  }
+}

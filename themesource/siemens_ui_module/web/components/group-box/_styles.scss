@@ -1,0 +1,35 @@
+.mx-groupbox {
+  > .mx-groupbox-body {
+    background-color: var(--frame-content-bg);
+  }
+  &.groupbox-primary,
+  &.groupbox-success,
+  &.groupbox-warning,
+  &.groupbox-danger {
+    > .mx-groupbox-header {
+      .mx-groupbox-collapse-icon {
+        color: var(--font-color-inverse);
+      }
+    }
+
+    &.groupbox-callout {
+      > .mx-groupbox-header {
+        .mx-groupbox-collapse-icon {
+          color: #000000;
+        }
+      }
+
+      > .mx-groupbox-body {
+        color: #000000;
+      }
+    }
+  }
+
+  &.groupbox-primary {
+    &.groupbox-callout {
+      > .mx-groupbox-body {
+        background-color: var(--brand-primary-lighter);
+      }
+    }
+  }
+}

@@ -1,0 +1,112 @@
+@use "./mixins" as *;
+@use "../../base/mixins" as *;
+
+.disw-card,
+.card,
+.disw-tile {
+  height: 100%;
+
+  @include createDefaultCardStyles;
+  @include pseudoCardStyles;
+  @include flexHeightCardStyles;
+
+  &.max-width {
+    max-width: 250px;
+  }
+
+  &.grey {
+    background-color: var(--cell-grey-bg);
+  }
+
+  &:has(input:checked),
+  &.selected {
+    background-color: var(--card-selected-bg);
+  }
+
+  &.disabled,
+  &:has(input:disabled) {
+    @include createDisabledCardStyles;
+
+    h4 {
+      color: var(--card-disabled-color);
+    }
+
+    .mx-image-viewer {
+      opacity: 0.2;
+    }
+  }
+
+  &:has(:not(input:disabled)) {
+    &.has-error,
+    &:has(.has-error) {
+      border-color: var(--card-error-border-color);
+      background-color: var(--card-error-bg);
+
+      h4 {
+        color: var(--card-error-title-color);
+
+        &:before {
+          vertical-align: top;
+          margin-right: var(--disw-g-spacing-xs);
+
+          @include createErrorIconStyles;
+        }
+      }
+    }
+  }
+
+  .disw-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--disw-g-spacing-md);
+    position: relative;
+
+    .clamp {
+      @include clamp;
+    }
+
+    .disw-card-description {
+      @include small-text;
+    }
+
+    .icon-collection {
+      display: flex;
+      gap: var(--disw-g-spacing-md);
+    }
+
+    .disw-checkbox {
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+  }
+}
+
+.disw-tile {
+  &.max-width {
+    max-width: 150px;
+  }
+}
+
+.disw-card.horizontal {
+  max-width: none;
+
+  .disw-card-content {
+    flex-direction: row;
+
+    &.img-right {
+      flex-direction: row-reverse;
+    }
+
+    .mx-image-viewer {
+      width: auto;
+    }
+
+    .disw-card-text-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: var(--disw-g-spacing-sm);
+      width: 100%;
+    }
+  }
+}

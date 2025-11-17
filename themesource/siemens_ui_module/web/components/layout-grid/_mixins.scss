@@ -1,0 +1,23 @@
+@use "../../disw_base-variables" as *;
+
+@mixin createMaxWidth (
+  $max-width: 1440px
+) {
+  max-width: $max-width;
+
+  @media (min-width: $screen-xl) {
+    max-width: $max-width;
+  }
+  @media (min-width: $screen-lg) {
+    max-width: $max-width;
+  }
+  @media (min-width: $screen-md) {
+    max-width: $max-width;
+  }
+  @media (min-width: $screen-sm) {
+    max-width: $max-width;
+  }
+  @media (min-width: $screen-xs) {
+    max-width: $max-width;
+  }    
+}

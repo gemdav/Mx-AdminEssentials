@@ -1,0 +1,59 @@
+@use "../../base/mixins" as *;
+
+.comparison-view.widget-gallery {
+  overflow-x: auto;
+
+  .widget-gallery-filter {
+    flex: 0;
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    box-shadow: var(--disw-g-elevation-4);
+
+    .row {
+      font-weight: var(--font-weight-semibold);
+    }
+  }
+
+  .comparison-item {
+    padding: 0;
+  }
+
+  .widget-gallery-content {
+    flex: 1;
+    min-width: 600px;
+  }
+
+  .widget-gallery-items {
+    grid-gap: 0;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)) !important;
+  }
+
+  .row {
+    font-weight: var(--font-weight-light);
+    border-top: 1px solid var(--grid-border-color);
+    padding: var(--disw-g-spacing-lg) var(--disw-g-spacing-3xl);
+    background-color: var(--bg-color-secondary);
+    margin: 0;
+
+    @include small-text;
+
+    &:first-child {
+      background: var(--table-header-bg);
+    }
+    &:last-child {
+      border-bottom: 1px solid var(--grid-border-color);
+    }
+  }
+
+  .first-row-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--disw-g-spacing-md);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .pagination-bar {
+    display: none;
+  }
+}

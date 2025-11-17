@@ -1,0 +1,99 @@
+.widget-datagrid,
+.widget-gallery {
+  .pagination-bar {
+    color: var(--pagination-btn-color);
+    margin: var(--disw-g-spacing-md) 0;
+
+    .pagination-button {
+      display: flex;
+      justify-content: center;
+      color: var(--pagination-btn-color);
+      background-color: var(--pagination-btn-bg);
+      border: 1px solid var(--pagination-btn-border-color);
+      box-shadow: none;
+      border-radius: var(--disw-g-border-radius-md);
+      padding: 0;
+      height: 32px;
+      width: 32px;
+
+      &:hover {
+        background-color: var(--pagination-btn-hover-bg);
+      }
+
+      &:active {
+        background-color: var(--pagination-btn-active-bg);
+      }
+
+      &:focus {
+        background-color: var(--pagination-btn-selected-bg);
+
+        &:hover {
+          background-color: var(--pagination-btn-selected-hover-bg);
+        }
+
+        &:active {
+          background-color: var(--pagination-btn-selected-active-bg);
+        }
+      }
+
+      &:disabled {
+        background-color: var(--pagination-btn-disabled-bg);
+        border-color: var(--pagination-btn-disabled-border-color);
+        color: var(--pagination-btn-disabled-border-color);
+      }
+
+      + .pagination-button {
+        margin-left: var(--disw-g-spacing-md);
+      }
+
+      .pagination-icon {
+        margin-left: 6px;
+        margin-top: 2px;
+
+        path {
+          transform: scale(1.5);
+        }
+
+        &.step-backward {
+          path {
+            d: path(
+              "M4.00985 9.01634L12.3072 1.48053L10.9626 0L5.98131 4.52409L4.73598 5.65512L3.49065 6.78614L1.24533 8.91716L1.24533 0L0 0L0 9.04819L0 17.7326H1.2473L1.2473 9.13374L3.49461 11.2193L5.98921 13.3904L10.9784 17.7326L12.2914 16.2239L4.00985 9.01634Z"
+            );
+          }
+        }
+
+        &.backward {
+          path {
+            d: path(
+              "M3.35653 9.14988L11.6539 1.61407L10.3093 0.133545L0.34668 9.18173L10.3251 17.8661L11.6381 16.3575L3.35653 9.14988Z"
+            );
+          }
+        }
+
+        &.forward {
+          path {
+            d: path(
+              "M8.62503 8.96185L0.343452 1.75425L1.65646 0.245605L11.6349 8.93001L1.67227 17.9782L0.327637 16.4977L8.62503 8.96185Z"
+            );
+          }
+        }
+
+        &.step-forward {
+          path {
+            d: path(
+              "M8.29776 9.01634L0.000371933 1.48053L1.34501 0L6.32631 4.52409L7.57164 5.65512L8.81697 6.78614L11.0623 8.91716L11.0623 0L12 0L12 9.04819V17.7326H11.0603V9.13374L8.81301 11.2193L6.31841 13.3904L1.32919 17.7326L0.0161896 16.2239L8.29776 9.01634Z"
+            );
+          }
+        }
+      }
+    }
+  }
+
+  &.hide-pagination-arrows {
+    .pagination-button {
+      &:has(.step-backward, .step-forward) {
+        display: none;
+      }
+    }
+  }
+}

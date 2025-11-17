@@ -1,0 +1,235 @@
+/* ==========================================================================
+   DI SW layout
+
+   Extra styling for responsive layouts. Builds upon the styling set for Atlas Core layouts.
+========================================================================== */
+
+/* ==========================================================================
+_Master_Layout: Application_Frame
+========================================================================== */
+@use "../base/mixins" as *;
+
+html {
+  font-size: var(--disw-g-font-size-base);
+}
+
+body {
+  background: var(--disw-g-primary-background);
+  color: var(--font-color-default);
+
+  .application-frame {
+    padding-right: var(--disw-g-spacing-md);
+    display: flex;
+
+    > div {
+      display: block;
+    }
+
+    .application-frame-left-nav {
+      --navsidebar-width-closed: 64px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .application-frame-left-nav + div {
+      order: 3;
+      flex: 1;
+    }
+
+    .navigation-panel {
+      --panel-bg: var(--disw-left-nav-panel-bg);
+      --panel-header-bg: var(--disw-left-nav-panel-bg);
+
+      &.disw-panel-container {
+        .header {
+          padding: var(--disw-g-spacing-xl);
+
+          .icons {
+            > * {
+              padding: var(--disw-g-spacing-sm);
+            }
+
+            .icon-close,
+            .icon-resize {
+              display: none;
+            }
+
+            .icon-pin {
+              position: absolute;
+              right: var(--disw-g-spacing-sm);
+              top: var(--disw-g-spacing-sm);
+            }
+          }
+        }
+
+        .content {
+          margin-top: auto;
+        }
+
+        .disw-panel {
+          z-index: 1;
+          resize: horizontal;
+        }
+
+        &.open {
+          .disw-panel.left {
+            left: 64px;
+          }
+        }
+      }
+    }
+
+    &:has(div.mid-expanded-nav) {
+      .disw-panel.left {
+        left: 128px !important;
+      }
+    }
+
+    &:has(div.full-expanded-nav) {
+      .disw-panel.left {
+        left: 320px !important;
+      }
+    }
+
+    .application-frame-content {
+      background-color: var(--frame-content-bg);
+      border-radius: var(--disw-g-border-radius-sm);
+      position: relative;
+    }
+  }
+
+  .application-frame-left-nav,
+  .application-frame-content {
+    .mx-scrollcontainer-wrapper {
+      height: 100%;
+      // display: flex;
+
+      > div {
+        flex: 0 0 100%;
+      }
+    }
+  }
+
+  .mx-scrollcontainer-vertical {
+    height: 100vh;
+  }
+
+  &:has(.mx-scrollcontainer-open) {
+    .header-sidebar-toggle span::before {
+      content: "\e9fe";
+    }
+  }
+
+  .application-frame-ix {
+    .application-frame-header {
+      color: var(--font-color-default);
+      background: var(--ix-primary-background);
+      border-bottom: 1px solid var(--ix-header-border-color);
+
+      h1 {
+        font-size: var(--disw-g-font-size-md);
+        line-height: var(--disw-g-line-height-xl);
+      }
+
+      .logo-img {
+        filter: var(--site-logo-filter);
+      }
+    }
+
+    .application-frame-left-nav {
+      background: var(--ix-primary-background);
+      --navsidebar-width-closed: 0;
+      --closed-sidebar-width: 0;
+
+      @media (min-width: 1080px) {
+        --navsidebar-width-closed: 52px;
+        --closed-sidebar-width: 52px;
+      }
+
+      .navbar-container {
+        flex: 1;
+
+        .navbar.navbar-default .navbar-nav li {
+          float: none;
+          max-width: fit-content;
+
+          a {
+            padding: 0;
+            height: 48px;
+            font-size: var(--disw-g-font-size-sm);
+            line-height: var(--disw-g-line-height-sm);
+            flex-direction: row;
+            text-wrap: nowrap;
+
+            > span {
+              min-width: 52px;
+            }
+          }
+
+          .dropdown-menu {
+            width: 100%;
+            background-color: var(--navsidebar-active-bg);
+          }
+        }
+      }
+
+      .sidebar-toggle {
+        margin-left: 10px;
+        margin-top: var(--disw-g-spacing-lg);
+        margin-bottom: var(--disw-g-spacing-lg);
+        width: 32px;
+        transition: transform 250ms ease-in;
+      }
+
+      .caret {
+        border: 0;
+        width: 24px;
+        height: 24px;
+        font-size: var(--disw-g-font-size-xl);
+        margin-left: auto;
+        margin-right: var(--disw-g-spacing-xl);
+
+        @include IX-icon("\e9e8");
+      }
+
+      .mx-navigationtree-collapsed > a > .caret {
+        &:before {
+          content: "\e9dc";
+        }
+      }
+
+      .mx-placeholder {
+        height: auto;
+      }
+    }
+
+    .mx-scrollcontainer-open.mx-scrollcontainer-shrink {
+      .application-frame-left-nav {
+        box-shadow: var(--disw-g-elevation-5);
+
+        .navbar-container {
+          .navbar.navbar-default .navbar-nav li {
+            max-width: none;
+          }
+        }
+
+        .sidebar-toggle {
+          transform: rotate(180deg);
+        }
+      }
+    }
+
+    .application-frame-content {
+      background: var(--frame-content-bg);
+    }
+
+    &.top-nav {
+      .application-frame-left-nav {
+        @media (min-width: 1080px) {
+          --navsidebar-width-closed: 0;
+          --closed-sidebar-width: 0;
+        }
+      }
+    }
+  }
+}

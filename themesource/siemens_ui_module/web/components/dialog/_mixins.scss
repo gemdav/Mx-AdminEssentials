@@ -1,0 +1,25 @@
+@mixin createErrorIconStyles {
+  background: url("resources/images/cmdcaution16.svg");
+  content: "";
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+}
+
+@mixin createDragIconStyles {
+  content: "\e912";
+  font-family: var(--font-family-common-icon);
+  color: rgba(255, 255, 255, 0.5);
+}
+
+@mixin modalCloseBtnPseudo {
+  &:hover {
+    background-color: var(--dialog-close-btn-hover-bg);
+  }
+  &:focus {
+    outline: 2px solid var(--btn-outline-color);
+  }
+  &:active {
+    background-color: var(--dialog-close-btn-active-bg);
+  }
+}

@@ -1,0 +1,134 @@
+@use "../../base/mixins" as *;
+
+@mixin createBorderStyles($color) {
+  box-shadow: 0 0 0 1px $color;
+  border-color: $color;
+}
+
+@mixin input-pseudo {
+  &:hover {
+    @include createBorderStyles(var(--textBox-hover-border-color));
+  }
+  &:focus {
+    @include createBorderStyles(var(--textBox-focus-border-color));
+  }
+  &:active,
+  &:hover {
+    background-color: var(--textBox-hover-bg);
+  }
+}
+
+@mixin input-error-pseudo {
+  &:hover {
+    @include createBorderStyles(var(--textBox-error-border-color));
+  }
+
+  &:active,
+  &:focus,
+  &:hover {
+    background-color: var(--textBox-error-bg);
+  }
+}
+
+@mixin createValidationMessageStyles {
+  background: transparent;
+  color: var(--textBox-error-color);
+  border: 0 none;
+  padding: 0;
+  font-weight: var(--font-weight-semibold);
+
+  @include small-text;
+}
+
+@mixin createReadOnlyStyles {
+  background-color: var(--textBox-readOnly-bg);
+  border-radius: var(--form-input-border-radius);
+  padding: var(--form-input-padding-y) var(--form-input-padding-x);
+  color: var(--textBox-readOnly-color);
+  border: 1px solid transparent;
+}
+
+@mixin createChildLabelStyles {
+  font-weight: var(--font-weight-normal);
+  color: var(--textBox-color);
+
+  @include small-text;
+}
+
+@mixin createErrorIconStyles {
+  content: "\e901";
+  font-family: var(--font-family-helper-icon);
+  color: var(--textBox-error-color);
+  position: absolute;
+  right: 8px;
+  top: 6px;
+}
+
+@mixin createAsteriskIconStyles {
+  content: "\e900";
+  font-family: var(--font-family-helper-icon);
+  font-weight: normal;
+  margin-right: var(--disw-g-spacing-sm);
+  color: var(--textBox-required-icon-color);
+}
+
+@mixin createRadioBtnErrorIconStyles {
+  content: "\e901";
+  display: inline-block;
+  font-family: var(--font-family-helper-icon);
+  color: var(--radioBtn-error-bg);
+  margin-right: var(--disw-g-spacing-sm);
+}
+
+@mixin createRadioBtnActiveStyles {
+  content: "";
+  width: 44px;
+  height: 44px;
+  background-color: var(--radioBtn-active-shadow-color);
+  position: absolute;
+  border-radius: 100%;
+  left: 0;
+  top: -50%;
+  transform: translateX(-30%);
+}
+
+@mixin displayNone {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  display: none;
+}
+
+@mixin createDropdownCheckboxStyles {
+  margin: initial;
+  width: 18px;
+  height: 18px;
+  border-radius: 3px; // Should be var(--checkbox-border-radius), but the Figma file states 3px.
+  border-color: var(--checkbox-border-color);
+  background-color: var(--checkbox-unchecked-bg);
+}
+
+@mixin createDropdownDisabledStyles {
+  opacity: 1;
+  border-color: var(--textBox-disabled-border-color);
+  background-color: var(--textBox-disabled-bg);
+  color: var(--textBox-disabled-color);
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 2px;
+}
+
+@mixin createInputAsTextStyles {
+  border-color: transparent;
+  background-color: transparent;
+  font-size: var(--disw-g-font-size-base);
+  line-height: var(--disw-g-line-height-md);
+}
+
+@mixin animationTransition {
+  -webkit-transition: font-size 300ms;
+  -moz-transition: font-size 300ms;
+  -o-transition: font-size 300ms;
+  transition: font-size 300ms;
+}

@@ -1,0 +1,18 @@
+.mx-listview {
+  > ul > li,
+  .mx-groupbox > .mx-groupbox-body {
+    background-color: transparent;
+
+    &.selected {
+      background-color: var(--table-selected-bg);
+    }
+  }
+}
+
+.listview-compact.mx-listview > ul > li {
+  padding: 0;
+
+  .disw-cell {
+    border: 0;
+  }
+}

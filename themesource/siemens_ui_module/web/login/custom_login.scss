@@ -1,0 +1,113 @@
+.starter-app-login {
+  .loginpage {
+    display: block;
+    background-color: #000028;
+
+    //Replace margin
+    .form-group:not(.no-columns) .control-label {
+      margin-bottom: var(--disw-g-spacing-sm);
+      font-size: var(--disw-g-font-size-xs);
+      font-weight: 600;
+    }
+
+    .brand-logo {
+      padding: var(--disw-g-spacing-4xl);
+    }
+
+    .login-dialog-modal {
+      padding: var(--disw-g-spacing-2xl);
+      max-width: calc(100% - 32px);
+      margin: 0 auto;
+
+      h2 {
+        margin-bottom: var(--disw-g-spacing-xl);
+      }
+    }
+
+    .form-group {
+      flex-direction: column;
+      align-items: flex-start;
+      width: 100%;
+
+      .inputwrapper {
+        position: relative;
+
+        .form-control {
+          padding: var(--disw-g-spacing-md);
+        }
+
+        .icon-user,
+        .icon-show,
+        .icon-hide {
+          position: absolute;
+          right: var(--disw-g-spacing-md);
+          top: 50%;
+          transform: translateY(-50%);
+        }
+      }
+    }
+
+    .login-form {
+      display: none;
+    }
+
+    .sso-label {
+      text-align: center;
+      margin-top: var(--disw-g-spacing-xl);
+    }
+
+    &.graphic_background::before {
+      bottom: 0 !important;
+    }
+
+    .loginpage-right {
+      display: block;
+    }
+  }
+  /*=========
+    SSO
+===========*/
+  .mx-sso-enabled-container {
+    opacity: 0;
+    height: 0;
+    display: flex;
+    //justify-content: center;
+    align-items: center;
+    column-gap: 12px;
+    margin-bottom: var(--disw-g-spacing-md);
+    padding: var(--disw-g-spacing-xl);
+    transition: all 0.35s ease-in-out;
+  }
+
+  .sso-container {
+    .sso-separator {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: var(--disw-g-spacing-md);
+      margin-bottom: var(--disw-g-spacing-md);
+      justify-content: center;
+      opacity: 1;
+      transition: all 1s ease-in-out;
+
+      .sso-line {
+        width: 100%;
+        transition: all 0.35s ease-in-out;
+
+        hr {
+          border-top: 1px solid var(--input-border-color);
+        }
+      }
+    }
+  }
+
+  .btn {
+    justify-content: center;
+    text-decoration: none;
+  }
+
+  .app-details {
+    gap: var(--disw-g-spacing-md);
+    margin-bottom: var(--disw-g-spacing-xl);
+  }
+}

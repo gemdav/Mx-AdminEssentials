@@ -1,0 +1,146 @@
+.mx-tabcontainer {
+  .mx-tabcontainer-tabs {
+    gap: var(--disw-g-spacing-xl);
+    border: 0 none;
+
+    > li {
+      &.active {
+        transition: box-shadow ease-out 0.2s;
+        box-shadow: inset 0px -2px 0px 0px var(--tabs-selection-color);
+
+        a,
+        a:hover,
+        a:focus {
+          color: var(--tab-hover-color);
+          border: 0 none;
+        }
+
+        a {
+          color: var(--tabs-selection-color);
+        }
+      }
+
+      a {
+        padding: var(--disw-g-spacing-sm);
+        border: 0 none;
+        color: var(--tab-color);
+
+        &:hover {
+          color: var(--tab-hover-color);
+        }
+        &:focus {
+          outline: 0 none !important;
+        }
+      }
+
+      &:focus-within {
+        outline: 2px solid var(--tab-focus-outline-color);
+        outline-offset: -2px;
+      }
+    }
+  }
+
+  &.tab-pills {
+    .mx-tabcontainer-tabs {
+      > li {
+        &.active {
+          box-shadow: none;
+
+          > a {
+            color: var(--tabs-pills-active-color);
+
+            &:hover,
+            &:focus {
+              color: var(--tabs-pills-active-color);
+            }
+          }
+        }
+        > a {
+          padding: var(--disw-g-spacing-md) var(--disw-g-spacing-lg);
+          margin: 0;
+          color: var(--tabs-pills-color);
+
+          &:hover,
+          &:focus {
+            color: var(--tabs-pills-color);
+            background-color: var(--tabs-pills-hover-bg);
+          }
+        }
+      }
+    }
+  }
+
+  &.tab-bordered {
+    .mx-tabcontainer-tabs {
+      gap: 0;
+      border-bottom: 1px solid var(--tabs-border-color);
+
+      > li {
+        box-shadow: none;
+
+        &.active a {
+          border: 1px solid var(--tabs-border-color);
+          border-bottom-color: var(--tabs-bordered-active-bottom-border-color);
+        }
+
+        a {
+          padding: var(--disw-g-spacing-md) var(--disw-g-spacing-lg);
+        }
+      }
+    }
+  }
+
+  &.tab-wizard {
+    .mx-tabcontainer-tabs {
+      > li {
+        box-shadow: none;
+
+        &.active {
+          a,
+          a:hover,
+          a:focus {
+            color: var(--tabs-pills-active-color);
+          }
+        }
+
+        a {
+          color: var(--tabs-pills-color);
+          background-color: var(--tabs-pills-bg);
+
+          &:hover {
+            background-color: var(--tabs-pills-hover-bg);
+          }
+        }
+      }
+    }
+  }
+
+  &.tab-lined {
+    .mx-tabcontainer-tabs {
+      > li {
+        margin: 0;
+        box-shadow: none;
+
+        a {
+          padding: var(--disw-g-spacing-sm);
+
+          &:hover {
+            color: var(--tabs-selection-color);
+          }
+        }
+      }
+    }
+  }
+
+  &.tab-justified {
+    .mx-tabcontainer-tabs > li {
+      margin-bottom: -1px;
+    }
+  }
+}
+
+// Style links inside tablist to have no underline
+[role="tablist"] a,
+.mx-tabcontainer-tabs a {
+  text-decoration: none;
+}

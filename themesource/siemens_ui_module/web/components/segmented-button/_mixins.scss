@@ -1,0 +1,10 @@
+$states: (hover, focus, active);
+
+@mixin generateSegmentedButtonStates {
+  @each $state in $states {
+    &:#{$state} {
+      background-color: var(--segmented-btn-#{$state}-bg);
+      border-color: var(--segmented-btn-border-color);
+    }
+  }
+}

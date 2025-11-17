@@ -1,0 +1,30 @@
+@mixin createHandleStyles {
+  background-color: var(--slider-handle-bg);
+  border: 0 none;
+  height: 16px;
+  width: 16px;
+  margin-top: -6px;
+  box-shadow: none;
+}
+
+@mixin createTooltipStyles {
+  background-color: var(--popupmenu-bg);
+  padding: var(--disw-g-spacing-lg);
+  box-shadow: var(--disw-g-elevation-4);
+  min-height: 48px;
+  min-width: 48px;
+  color: var(--font-color-default);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin createDotStyles {
+  background-color: var(--slider-dot-bg);
+  border: 0 none;
+  height: 5px;
+  width: 1px;
+  bottom: 4px;
+  margin-left: -2px;
+  border-radius: 0;
+}

@@ -1,0 +1,118 @@
+@use "./mixins" as *;
+@use "../../base/mixins" as *;
+
+.disw-accordion,
+.widget-accordion {
+  .widget-accordion-group {
+    margin-bottom: var(--disw-g-spacing-md);
+    background-color: transparent;
+
+    > .widget-accordion-group-header > .widget-accordion-group-header-button {
+      padding: var(--disw-g-spacing-md);
+
+      > :is(h1, h2, h3) {
+        font-size: var(--disw-g-font-size-base) !important;
+        line-height: initial;
+      }
+
+      &.widget-accordion-group-header-button-clickable {
+        border-radius: var(--disw-g-border-radius-sm);
+
+        &:focus:not(:active) {
+          background: var(--accordion-header-default-bg);
+          outline: 2px solid var(--accordion-header-focus-outline-color);
+          outline-offset: 2px;
+        }
+
+        &:focus-visible {
+          box-shadow: none;
+        }
+
+        .widget-accordion-group-header-button-icon {
+          padding-left: var(--disw-g-spacing-sm);
+          top: 0;
+          color: var(--accordion-btn-icon-color) !important;
+
+          @include small-text;
+        }
+
+        &:hover,
+        &:focus {
+          > :is(
+              h1,
+              h2,
+              h3,
+              h4,
+              h5,
+              .widget-timeline-title,
+              .widget-eventTime,
+              h6,
+              p,
+              span
+            ) {
+            color: var(--font-color-header);
+          }
+        }
+      }
+    }
+
+    > .widget-accordion-group-content-wrapper {
+      background: var(--frame-content-bg);
+
+      > .widget-accordion-group-content {
+        padding: var(--disw-g-spacing-md) var(--disw-g-spacing-3xl);
+
+        @include small-text;
+      }
+    }
+
+    // override the triangle icon styles
+    &:not(.widget-accordion-group-collapsed)
+      .widget-accordion-group-header-button-icon-animate {
+      transform: rotate(90deg);
+    }
+
+    &.disabled {
+      // overriding global disabled class changes
+      opacity: 1;
+
+      > .widget-accordion-group-header > .widget-accordion-group-header-button {
+        pointer-events: none;
+        background-color: var(--accordion-header-disabled-bg);
+
+        @include accordion-text(var(--accordion-header-disabled-color));
+
+        .widget-accordion-group-header-button-icon {
+          color: var(--accordion-header-disabled-color) !important;
+        }
+      }
+    }
+
+    &.read-only {
+      > .widget-accordion-group-header > .widget-accordion-group-header-button {
+        padding-left: var(--disw-g-spacing-3xl);
+      }
+    }
+  }
+
+  &.with-btn {
+    .widget-accordion-group {
+      > .widget-accordion-group-header > .widget-accordion-group-header-button {
+        padding: var(--disw-g-spacing-sm) var(--disw-g-spacing-md);
+      }
+    }
+  }
+
+  // chrome less variation
+  &.widget-accordion-chromeless {
+    .widget-accordion-group {
+      > .widget-accordion-group-header
+        > .widget-accordion-group-header-button.widget-accordion-group-header-button-clickable {
+        &:not(:hover),
+        &:focus:not(:active) {
+          background: transparent;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,47 @@
+@mixin createErrorIconStyles {
+  background: url("resources/images/cmdcaution16.svg");
+  content: "";
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+}
+
+@mixin createDefaultCardStyles {
+  border-radius: var(--disw-g-border-radius-md);
+  border: 1px solid var(--card-border-color);
+  padding: var(--disw-g-spacing-md);
+  box-shadow: var(--disw-g-elevation-2);
+  background-color: var(--card-bg);
+}
+
+@mixin createDisabledCardStyles {
+  pointer-events: none;
+  background-color: var(--card-disabled-bg);
+  color: var(--card-disabled-color);
+}
+
+@mixin pseudoCardStyles {
+  &:hover {
+    box-shadow: var(--disw-g-elevation-4);
+  }
+}
+
+@mixin clamp {
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+}
+
+@mixin flexHeightCardStyles {
+  &.spacing-outer-bottom-medium {
+    @media (min-width: 1080px) {
+      height: calc(100% - var(--disw-g-spacing-xl));
+    }
+
+    @media (max-width: 1079px) {
+      height: calc(100% - var(--disw-g-spacing-lg));
+    }
+  }
+}

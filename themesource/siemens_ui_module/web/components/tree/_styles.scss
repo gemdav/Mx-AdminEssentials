@@ -1,0 +1,110 @@
+@use "./mixins" as *;
+
+.widget-tree-node {
+  .widget-tree-node-branch {
+    &:focus,
+    &:focus-visible {
+      & > .widget-tree-node-branch-header {
+        outline: 2px solid var(--tree-outline-color);
+        outline-offset: -2px;
+      }
+    }
+
+    .widget-tree-node-branch-header {
+      padding: var(--disw-g-spacing-sm) calc(var(--disw-g-spacing-md) + 6px);
+
+      &:active {
+        background-color: var(--tree-selected-bg-color);
+      }
+
+      &:hover {
+        background-color: var(--tree-hover-bg-color);
+      }
+
+      &:active:hover {
+        background-color: var(--tree-selected-hover-bg-color);
+      }
+
+      &:has(input:checked),
+      &.selected {
+        background-color: var(--tree-selected-bg-color);
+
+        &:active {
+          background-color: var(--tree-pressed-selected-bg-color);
+        }
+
+        &:hover {
+          background-color: var(--tree-selected-hover-bg-color);
+        }
+      }
+    }
+
+    .widget-tree-node-branch-header-icon {
+      font-size: 8px;
+      top: 0;
+    }
+
+    &[aria-expanded="true"] {
+      .widget-tree-node-branch-header-icon {
+        color: var(--tree-icon-expanded-color);
+      }
+    }
+
+    &[aria-expanded="false"] {
+      .widget-tree-node-branch-header-icon {
+        color: var(--tree-icon-default-color);
+      }
+    }
+  }
+
+  .widget-tree-node-body {
+    padding-left: calc(var(--disw-g-spacing-xl) + 2px);
+  }
+
+  // Dotted variation
+  &.dotted {
+    ul {
+      li {
+        position: relative;
+        border-left: 1px dotted var(--tree-dotted-border-color);
+
+        &:before {
+          @include createDottedStyle;
+        }
+
+        &:last-child {
+          border-color: transparent;
+
+          &:before {
+            border-left-color: var(--tree-dotted-border-color);
+          }
+        }
+      }
+    }
+
+    .widget-tree-node-body {
+      padding-left: calc(var(--disw-g-spacing-xl) + 1px);
+    }
+  }
+
+  // visual indicators
+  .disw-checkbox {
+    margin-right: var(--disw-g-spacing-md);
+    max-height: 18px;
+  }
+
+  .mx-image-viewer + .mx-image-viewer {
+    margin-left: var(--disw-g-spacing-xs);
+  }
+
+  // disabled
+  &.disabled {
+    @include disabledState;
+
+    .widget-tree-node-branch {
+      .widget-tree-node-branch-header-icon {
+        color: var(--font-color-default);
+      }
+    }
+  }
+}

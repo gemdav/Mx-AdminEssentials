@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+   
+    {{themecss}} {{appicons}} {{manifest}} {{startupimages}}
+   
+    <!--<link rel="stylesheet" type="text/css" href="/custom/css/login.css">-->
+    <script src="/custom/script/jquery-3.5.1.min.js"></script>
+</head>
+ 
+<body data-theme="dark" class="starter-app-login">
+    <div class="loginpage login-page graphic_background">
+        <!-- Siemens brand image -->
+        <div>
+            <div class="mx-image-viewer mx-name-image2 brand-logo">
+                <img class="" src="/img/Siemens_UI_Module$DISW_Images_Layouts$sie_logo_white_rgb.svg" alt="">
+            </div>
+            <div class="loginpage-image"></div>
+        </div>
+ 
+        <div class="loginpage-right">
+            <div class="login-dialog-modal">
+                <div class="d-flex align-children-center app-details">
+                    <img class="" src="/custom/resources/Application_Icon_Placeholder_Large.svg" alt="application logo" style="width: 64px;">
+                    <h3 class="mx-text text-bold">Application Name</h3>
+                </div>
+ 
+                <form id="loginForm" class="loginpage-form" autocomplete="off">
+                    <div>
+                        <!-- SSO Container -->
+                        <div class="sso-container">
+                            <a id="ssoButton" href="/oauth/v2/login" class="btn btn-primary btn-lg w-100">
+                                Sign in with SSO
+                            </a>
+ 
+                            <div class="sso-label show-alt-login">
+                                <a class="alt-login" href="javascript:void(0)">
+                                    Show alternative login
+                                </a>
+                            </div>
+                        </div>
+ 
+                        <!-- Sign in Container -->
+                        <div id="loginMessage" class="alert alert-danger"></div>
+ 
+                        <div class="login-form">
+                            <div class="sso-separator">
+                                <div class="sso-line">
+                                    <hr>
+                                </div>
+                            </div>
+                           
+                            <div class="form-group mx-textbox">
+                                <label class="control-label" id="usernameLabel" for="usernameInput">
+                                    Username
+                                </label>
+                                <div class="inputwrapper">
+                                    <input
+                                        id="usernameInput"
+                                        class="form-control"
+                                        type="text"
+                                        aria-required="true"
+                                        placeholder="Username"
+                                        autocorrect="off"
+                                        autocapitalize="none"
+                                        autocomplete="off"
+                                    />
+                                    <!--<span class="icon-user"></span>-->
+                                </div>
+                            </div>
+ 
+                            <div id="loginPassword" class="form-group mx-textbox">
+                                <label class="control-label" id="passwordLabel" for="passwordInput">
+                                    Password
+                                </label>
+                                <div class="inputwrapper">
+                                    <input
+                                        id="passwordInput"
+                                        class="form-control"
+                                        type="password"
+                                        placeholder="Password"
+                                        autocorrect="off"
+                                        autocapitalize="none"
+                                        autocomplete="off"
+                                        aria-required="true"
+                                    />
+                                    <span
+                                        id="toggle-password"
+                                        class="iX_DesignSystem Icon-eye icon-show btn btn-chromeless btn-sm"
+                                        role="button"
+                                        tabindex="0">
+                                    </span>
+                                </div>
+                            </div>
+ 
+                            <button id="loginButton" type="submit" class="btn btn-default btn-lg w-100">
+                                Sign in
+                            </button>
+ 
+                            <div class="sso-label hide-alt-login">
+                                <a class="alt-login" href="javascript:void(0)">
+                                    Hide alternative login
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+ 
+    <!-- Scripts -->
+    <script src="/custom/script/login_i18n.js"></script>
+    <script src="js/login.js?{{cachebust}}"></script>
+    <script>
+        // Event listeners for showing/hiding alternative login
+        $('.show-alt-login').on('click', function(e) {
+            $(this).slideUp(200);
+            $('.login-form').slideDown(300);
+        });
+ 
+        $('.hide-alt-login').on('click', function(e) {
+            $('.login-form').slideUp(300);
+            $('.show-alt-login').slideDown(300);
+        });
+ 
+       
+        $('#toggle-password').on('click', function() {
+            const icon = this;
+            const input = document.querySelector('#passwordInput');
+ 
+            if (icon.classList.contains('Icon-eye')) {
+                icon.classList.remove('Icon-eye');
+                icon.classList.add('Icon-eye-cancelled');
+            } else {
+                icon.classList.remove('Icon-eye-cancelled');
+                icon.classList.add('Icon-eye');
+            }
+ 
+            if (input.type === 'password') {
+                input.type = 'text';
+            } else {
+                input.type = 'password';
+            }
+        });
+    </script>
+</body>
+</html>

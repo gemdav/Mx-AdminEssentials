@@ -1,0 +1,140 @@
+@use "../../base/mixins" as *;
+
+.disw-breadcrumb {
+  &-arrow {
+    width: auto;
+
+    span[class*="Icon"],
+    span[class*="mx-icon"] {
+      display: block;
+      font-size: calc(var(--disw-g-font-size-xs) * 2 / 3);
+      color: var(--font-color-default);
+      padding: var(--disw-g-spacing-sm);
+      color: var(--font-color-default);
+      line-height: 1.65;
+
+      &.iX_DesignSystem {
+        font-size: var(--disw-g-font-size-xs);
+      }
+    }
+
+    &.collapse-arrow {
+      padding: var(--disw-g-spacing-sm) var(--disw-g-spacing-md);
+      transition: transform 0.2s ease-in-out;
+      transform: rotate(180deg);
+    }
+  }
+
+  &-current,
+  &:last-child {
+    color: var(--breadcrumb-current-color);
+    line-height: 1.65;
+
+    @include ellipsis-text;
+  }
+
+  .widget-tooltip-trigger {
+    display: flex;
+  }
+}
+
+// Breadcrumb container
+.disw-breadcrumb-container {
+  // compact styles
+  &.compact {
+    .disw-breadcrumb {
+      // increase size for first breadcrumb item
+      &:first-child a {
+        font-size: var(--disw-g-font-size-lg);
+        line-height: var(--disw-g-line-height-lg);
+      }
+    }
+  }
+
+  // collapsed styles
+  &.collapsed {
+    .disw-breadcrumb {
+      .collapse-arrow {
+        transform: rotate(0deg);
+      }
+
+      // hide all elements except first and last
+      &:not(:first-child):not(:last-child) {
+        width: 0;
+        overflow: hidden;
+      }
+    }
+  }
+}
+
+// Gallery widget breadcrumb styles
+.widget-gallery.disw-gallery-breadcrumb {
+  .widget-gallery-content {
+    .widget-gallery-items {
+      display: flex;
+      column-gap: 0;
+      row-gap: var(--disw-g-spacing-sm); // if items wrap
+      align-items: center;
+
+      .widget-gallery-item {
+        @include ellipsis-text;
+        padding: var(--disw-g-spacing-sm);
+        margin: calc(var(--disw-g-spacing-sm) * -1);
+
+        &:last-child {
+          .disw-breadcrumb {
+            display: none !important;
+          }
+          .disw-breadcrumb-current {
+            display: block;
+          }
+        }
+
+        .disw-breadcrumb-current {
+          display: none;
+        }
+      }
+    }
+  }
+
+  // Hide display of gallery footer
+  .widget-gallery-footer {
+    display: none;
+  }
+
+  // compact styles
+  &.compact .widget-gallery-item {
+    &:first-child a {
+      font-size: var(--disw-g-font-size-lg);
+      line-height: var(--disw-g-line-height-lg);
+    }
+
+    .collapse-arrow,
+    &:first-child .disw-breadcrumb-arrow {
+      display: none;
+    }
+
+    &:first-child .collapse-arrow {
+      display: inline-block;
+    }
+  }
+
+  &.wrap {
+    .widget-gallery-items {
+      flex-wrap: wrap;
+    }
+  }
+
+  &.collapsed {
+    .widget-gallery-item {
+      .collapse-arrow {
+        transform: rotate(0deg);
+      }
+
+      &:not(:first-child):not(:last-child) {
+        width: 0;
+        overflow: hidden;
+      }
+    }
+  }
+}

@@ -1,0 +1,232 @@
+@use "./mixins" as *;
+@use "../buttons/mixins" as *;
+@use "../input/mixins" as *;
+
+.mx-datepicker,
+.mx-name-advancedDatePicker1 {
+  .mx-icon-calendar {
+    @include showCalendarIcon_DISW;
+  }
+
+  .mx-compound-control {
+    position: relative;
+
+    .form-control {
+      &:not([disabled]) {
+        @include input-pseudo;
+      }
+
+      &[disabled] {
+        border-color: var(--textBox-disabled-border-color);
+        color: var(--textBox-disabled-color);
+      }
+    }
+  }
+
+  &:has([disabled]) {
+    label {
+      color: var(--textBox-disabled-color);
+    }
+
+    &:has([aria-required="true"]),
+    &.aria-required {
+      label.control-label:before {
+        color: var(--textBox-disabled-color);
+      }
+    }
+  }
+
+  // read only styles
+  .form-control-static {
+    @include createReadOnlyStyles;
+  }
+
+  button {
+    box-shadow: none;
+    margin-left: 0;
+    padding: var(--disw-g-spacing-sm) var(--disw-g-spacing-md);
+    font-size: 16px;
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--font-color-default);
+
+    @include btn-chromeless;
+  }
+
+  &.has-error:has(label):after {
+    right: 40px;
+  }
+
+  &.has-error {
+    .form-control:not([disabled]) {
+      background-color: var(--textBox-error-bg);
+
+      &:hover {
+        background-color: var(--textBox-error-bg);
+        box-shadow: 0 0 0 1px var(--textBox-error-border-color);
+      }
+    }
+
+    .mx-validation-message {
+      @include createValidationMessageStyles;
+    }
+  }
+
+  // Initially, show as text. When clicked, show as focused input field
+  &.input-as-text {
+    .mx-button {
+      opacity: 0;
+    }
+
+    &:active,
+    &:hover,
+    &:focus,
+    &:focus-within {
+      font-size: var(--disw-g-font-size-xs);
+
+      .mx-button {
+        opacity: 1;
+      }
+    }
+
+    .form-control {
+      @include createInputAsTextStyles;
+      @include animationTransition;
+      max-height: 34px;
+      cursor: pointer;
+
+      &:active,
+      &:hover,
+      &:focus {
+        font-size: var(--disw-g-font-size-xs);
+      }
+    }
+  }
+}
+
+.mx-calendar {
+  background-color: var(--date-picker-bg);
+
+  .mx-calendar-day-month-previous,
+  .mx-calendar-day-month-next {
+    color: var(--font-color-default);
+  }
+
+  .mx-calendar-day-selected {
+    color: var(--date-picker-item-selected-color);
+    background-color: var(--date-picker-item-selected-bg);
+
+    &.mx-calendar-day-today {
+      color: var(--date-picker-item-selected-color);
+    }
+  }
+
+  .mx-calendar-day-today {
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--date-picker-item-selected-border-color);
+    color: var(--date-picker-today-color);
+  }
+
+  .mx-calendar-year-switcher {
+    color: var(--link-color);
+  }
+
+  th {
+    color: var(--font-color-default);
+    font-weight: var(--font-weight-light);
+  }
+
+  td {
+    height: 40px;
+    width: 40px;
+    color: var(--font-color-default);
+
+    &:hover {
+      background-color: var(--date-picker-item-bg-hover);
+      color: var(--font-color-default);
+    }
+  }
+}
+
+.mx-calendar-month-dropdown-options {
+  padding: 0;
+  background-color: var(--dropdown-menu-bg);
+  border-color: var(--dropdown-border-color);
+  box-shadow: var(--dropdown-box-shadow);
+
+  div {
+    padding: var(--disw-g-spacing-md);
+  }
+}
+
+// Used in iX layout
+.application-frame-ix {
+  .mx-datepicker,
+  .mx-name-advancedDatePicker1 {
+    .mx-icon-calendar {
+      @include showCalendarIcon_iX;
+    }
+  }
+}
+
+// Data grid date picker styles
+.react-datepicker {
+  background-color: var(--date-picker-bg);
+  border: 0 none;
+  box-shadow: var(--disw-g-elevation-5);
+  font-size: var(--disw-g-font-size-xs);
+
+  &__header {
+    background-color: var(--date-picker-bg);
+  }
+
+  &__navigation {
+    top: 8px;
+  }
+
+  &__header__dropdown {
+    margin: var(--disw-g-spacing-lg) 0 var(--disw-g-spacing-md) 0;
+  }
+
+  &__current-month {
+    color: var(--font-color-default);
+  }
+
+  &__day-name {
+    color: var(--link-color);
+  }
+
+  &__day {
+    color: var(--font-color-default);
+
+    &.react-datepicker__day--selected {
+      color: var(--date-picker-item-selected-color);
+      background-color: var(--date-picker-item-selected-bg);
+    }
+
+    &--today:not(.react-datepicker__day--in-range),
+    &--keyboard-selected {
+      background: transparent;
+      color: var(--font-color-default);
+      border: 1px solid var(--date-picker-item-selected-border-color);
+    }
+
+    &--selected {
+      color: var(--date-picker-item-selected-color);
+    }
+
+    &:not(.react-datepicker__day--selected):hover {
+      background-color: var(--date-picker-item-bg-hover);
+      color: var(--font-color-default);
+    }
+  }
+
+  &__month-container {
+    color: var(--font-color-default);
+  }
+}

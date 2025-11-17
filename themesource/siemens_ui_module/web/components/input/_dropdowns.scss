@@ -1,0 +1,405 @@
+@use "../../base/mixins" as *;
+@use "./mixins" as *;
+
+.widget-combobox {
+  .form-control:not([disabled]) {
+    @include input-pseudo;
+  }
+
+  .widget-combobox-placeholder-text {
+    color: var(--textBox-color);
+  }
+
+  .widget-combobox-placeholder-empty {
+    font-style: italic;
+    color: var(--placeholder-color);
+  }
+
+  .widget-combobox-input:focus {
+    background: transparent;
+  }
+
+  .widget-combobox-menu-header {
+    border-bottom-color: var(--dropdown-border-color);
+  }
+
+  .widget-combobox-input {
+    color: var(--textBox-color);
+  }
+
+  /* Change the default arrow to filled one, according to DI SW standards */
+  .widget-combobox-input-container {
+    .widget-combobox-down-arrow {
+      padding-left: var(--disw-g-spacing-sm);
+    }
+
+    .widget-combobox-icon-container {
+      padding-top: 0;
+      color: var(--font-color-default);
+
+      .mx-icon-chevron-down {
+        path {
+          fill: currentColor;
+          d: path("M17 10l-5 6-5-6h10z");
+          transform: scale(1.5, 1.25);
+        }
+      }
+    }
+
+    .widget-combobox-caption-text {
+      @include small-text;
+    }
+  }
+
+  // Checkbox styling
+  .widget-combobox-menu {
+    background-color: var(--dropdown-menu-bg);
+    border: 1px solid var(--dropdown-border-color);
+    box-shadow: var(--dropdown-box-shadow);
+    border-radius: var(--disw-g-border-radius-md);
+    padding-top: inherit;
+
+    .widget-combobox-icon-container {
+      margin-right: var(--disw-g-spacing-md);
+    }
+
+    // Hide HTML checkbox
+    .widget-combobox-menu-list {
+      input[type="checkbox"] {
+        @include displayNone;
+      }
+
+      // And create our own DI SW styling, according to DISW Checkbox
+      .widget-combobox-icon-container:before {
+        @include createDropdownCheckboxStyles;
+        content: "";
+        border-width: 1px;
+        border-style: solid;
+      }
+
+      .widget-combobox-item-selected {
+        background-color: var(--dropdown-menu-item-selected);
+
+        &:hover {
+          background: var(--dropdown-menu-item-selected-hover);
+        }
+
+        .widget-combobox-icon-container {
+          position: relative;
+
+          &:before {
+            background-color: var(--checkbox-checked-bg);
+            border: 0 none;
+          }
+          &:after {
+            content: "";
+            transform: rotate(-45deg);
+            border: 2px solid var(--checkbox-arrow-color);
+            width: 12px;
+            height: 5px;
+            border-top: 0;
+            border-right: 0;
+            pointer-events: none;
+            display: block;
+            position: absolute;
+            top: 6px;
+            left: 3px;
+          }
+        }
+      }
+    }
+
+    // 'Select All' checkbox
+    input[type="checkbox"].three-state-checkbox {
+      &:before {
+        @include createDropdownCheckboxStyles;
+      }
+
+      &:checked:before,
+      &:indeterminate:before {
+        background-color: var(--checkbox-checked-bg);
+        border: 0 none;
+      }
+
+      &:indeterminate:after {
+        border-color: var(--checkbox-arrow-color);
+      }
+
+      &:indeterminate:not(:checked):after {
+        width: 12px;
+      }
+
+      &:checked:after,
+      &:not(:disabled):not(:checked):hover:after {
+        width: 12px;
+        height: 6px;
+        top: 5px;
+        left: 3px;
+        transform: rotate(-50deg);
+        border-bottom: 2px solid var(--checkbox-arrow-color);
+        border-left: 2px solid var(--checkbox-arrow-color);
+      }
+    }
+
+    .widget-combobox-caption-text {
+      padding-top: var(--disw-g-spacing-xs);
+
+      @include small-text;
+    }
+
+    .widget-combobox-item {
+      align-items: flex-start;
+      color: var(--font-color-default);
+      background: transparent;
+
+      &:hover {
+        background: var(--dropdown-menu-item-hover);
+      }
+
+      &:focus {
+        outline: 2px solid var(--btn-outline-color);
+        outline-offset: -2px;
+      }
+
+      &:active {
+        background: var(--dropdown-menu-item-active);
+      }
+
+      &:has(input[type="checkbox"]) {
+        &:hover {
+          background: var(--dropdown-multiselect-menu-item-hover);
+        }
+
+        &:active {
+          background: var(--dropdown-multiselect-menu-item-active);
+        }
+
+        &.widget-combobox-item-selected {
+          background-color: var(--dropdown-multiselect-menu-item-selected);
+
+          &:hover {
+            background: var(--dropdown-multiselect-menu-item-selected-hover);
+          }
+
+          &:active {
+            background: var(--dropdown-multiselect-menu-item-active);
+          }
+        }
+      }
+    }
+  }
+
+  // Disabled styles
+  .widget-combobox-input-container-disabled.form-control-static {
+    @include createDropdownDisabledStyles;
+    background-image: url(resources/images/filled-arrow.svg);
+    background-position: calc(100% - var(--disw-g-spacing-lg)) center;
+    background-repeat: no-repeat;
+
+    .widget-combobox-placeholder-text {
+      color: var(--textBox-disabled-color);
+    }
+  }
+
+  .control-label:has(
+      + .widget-combobox
+        .widget-combobox-input-container-disabled.form-control-static
+    ) {
+    color: var(--textBox-disabled-color);
+  }
+
+  // Read-Only styles
+  .widget-combobox-input-container-disabled {
+    @include createReadOnlyStyles;
+
+    .widget-combobox-down-arrow {
+      @include displayNone;
+    }
+  }
+
+  .widget-combobox-menu-lazy-scroll {
+    background: none;
+  }
+}
+
+div[class*="mx-name-comboBox"] {
+  &:has(.widget-combobox-input[aria-required="true"]) {
+    label.control-label:before {
+      @include createAsteriskIconStyles;
+    }
+
+    &.has-error {
+      > .control-label,
+      .control-label:before {
+        color: var(--textBox-error-color);
+      }
+
+      .widget-combobox-selected-items,
+      .widget-combobox-text {
+        flex-wrap: nowrap;
+
+        &:after {
+          @include createErrorIconStyles;
+          position: relative;
+          top: initial;
+          right: initial;
+        }
+      }
+
+      &:has(.control-label) {
+        &:after {
+          margin-top: calc(var(--disw-g-spacing-2xl) + 1px);
+        }
+      }
+
+      .form-control:not([disabled]) {
+        @include input-error-pseudo;
+        border-color: var(--textBox-error-border-color);
+        background-color: var(--textBox-error-bg);
+      }
+
+      &:has(.widget-combobox-clear-button) {
+        &:after {
+          right: 64px;
+        }
+      }
+    }
+
+    &:has(.form-control-static) {
+      label.control-label:before {
+        color: var(--textBox-disabled-color);
+      }
+    }
+  }
+
+  &:has(.widget-combobox-input-container-disabled.form-control) {
+    label.control-label:before {
+      display: none;
+    }
+  }
+
+  &:has(.form-control-static) {
+    label.control-label {
+      color: var(--textBox-disabled-color);
+    }
+  }
+
+  // Additional class names
+  // Initially, show as text. When clicked, show as focused input field
+  &.input-as-text {
+    .form-control {
+      @include createInputAsTextStyles;
+      @include animationTransition;
+      line-height: var(--disw-g-line-height-xs);
+      max-height: 34px;
+      cursor: pointer;
+
+      .widget-combobox-caption-text {
+        @include createInputAsTextStyles;
+        @include animationTransition;
+        line-height: var(--disw-g-line-height-xs);
+        max-height: 34px;
+      }
+
+      .widget-combobox-placeholder-text {
+        min-height: 21px;
+      }
+
+      .widget-combobox-selected-items {
+        align-content: center;
+      }
+
+      .widget-combobox-down-arrow {
+        opacity: 0;
+      }
+
+      &:active,
+      &:hover,
+      &:focus {
+        font-size: var(--disw-g-font-size-xs);
+        line-height: var(--disw-g-line-height-xs);
+
+        .widget-combobox-caption-text {
+          font-size: var(--disw-g-font-size-xs);
+          line-height: var(--disw-g-line-height-xs);
+        }
+
+        .widget-combobox-down-arrow {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+
+div[class*="mx-name-dropDown"] {
+  &:has(.form-control-static) {
+    label,
+    label.control-label:before,
+    &:has([aria-required="true"]) label.control-label:before {
+      color: var(--textBox-disabled-color);
+    }
+  }
+
+  &:has([aria-required="true"]) {
+    label.control-label:before {
+      @include createAsteriskIconStyles;
+    }
+  }
+
+  &:has(.widget-combobox-input-container-disabled.form-control) {
+    label.control-label:before {
+      display: none;
+    }
+  }
+}
+
+// Dirty state styles
+.dirty .widget-combobox {
+  .form-control:not([disabled]),
+  .widget-combobox-input:not([disabled]) {
+    background-color: var(--textBox-dirty-bg);
+  }
+}
+
+// hint text styles
+.dropdown-with-hint {
+  .form-group {
+    margin-bottom: 0;
+  }
+
+  .hint-text {
+    @include createChildLabelStyles;
+    color: var(--text-hint-color);
+    font-style: italic;
+  }
+
+  &:has([disabled]) {
+    .hint-text,
+    label {
+      color: var(--textBox-disabled-color);
+    }
+  }
+
+  &:has(.has-error) {
+    .hint-text {
+      color: var(--textBox-error-color);
+    }
+  }
+}
+
+.has-error {
+  .widget-combobox .form-control {
+    background-color: var(--textBox-error-bg);
+  }
+
+  label.control-label {
+    color: var(--textBox-error-color);
+  }
+
+  .widget-combobox .form-control:not([disabled]):hover {
+    border-color: var(--textBox-error-border-color);
+    box-shadow: 0 0 0 1px var(--textBox-error-border-color);
+    background-color: var(--textBox-error-bg);
+  }
+}

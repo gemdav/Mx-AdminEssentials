@@ -1,0 +1,188 @@
+@use "./mixins" as *;
+@use "../../base/mixins" as *;
+
+.btn {
+  font-weight: var(--font-weight-semibold);
+  box-shadow: var(--disw-g-elevation-2);
+  padding: var(--disw-g-spacing-md) var(--disw-g-spacing-lg);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--disw-g-spacing-md);
+
+  &.btn-sm {
+    padding: var(--disw-g-spacing-sm) var(--disw-g-spacing-md);
+  }
+
+  &.btn-lg {
+    padding: var(--disw-g-spacing-md) var(--disw-g-spacing-xl);
+  }
+
+  &:focus {
+    outline: 2px solid var(--btn-outline-color);
+    outline-offset: 2px;
+  }
+
+  &.btn-default {
+    @include btn-variation-pseudo(
+      var(--btn-default-border-color),
+      var(--btn-default-bg-focus),
+      var(--btn-default-bg-active)
+    );
+
+    @include btn-disabled();
+  }
+
+  &.btn-chromeless {
+    @include btn-chromeless;
+
+    @include btn-disabled(rgba(0, 0, 0, 0));
+  }
+
+  &.icon-only {
+    color: var(--font-color-default);
+  }
+
+  &.btn-primary {
+    &.btn-base {
+      @include btn-base(
+        var(--btn-primary-base-border-color),
+        var(--btn-primary-base-bg),
+        var(--btn-primary-base-color)
+      );
+      @include btn-base-pseudo(
+        var(--btn-primary-base-border-color),
+        var(--btn-primary-base-bg-hover),
+        var(--btn-primary-base-bg-focus),
+        var(--btn-primary-base-bg-active),
+        var(--btn-primary-base-color-hover)
+      );
+    }
+
+    @include btn-variation-pseudo(
+      var(--btn-primary-border-color),
+      var(--btn-primary-bg-focus),
+      var(--btn-primary-bg-active)
+    );
+    @include btn-disabled();
+  }
+
+  &.btn-info {
+    &.btn-base {
+      @include btn-base(
+        var(--btn-info-base-border-color),
+        var(--btn-info-base-bg),
+        var(--btn-info-base-color)
+      );
+      @include btn-base-pseudo(
+        var(--btn-info-base-border-color),
+        var(--btn-info-base-bg-hover),
+        var(--btn-info-base-bg-focus),
+        var(--btn-info-base-bg-active),
+        var(--btn-info-base-color)
+      );
+    }
+
+    @include btn-variation-pseudo(
+      var(--btn-info-border-color),
+      var(--btn-info-bg-focus),
+      var(--btn-info-bg-active)
+    );
+
+    @include btn-disabled();
+  }
+
+  &.btn-success {
+    &.btn-base {
+      @include btn-base(
+        var(--btn-success-base-border-color),
+        var(--btn-success-base-bg),
+        var(--btn-success-base-color)
+      );
+      @include btn-base-pseudo(
+        var(--btn-success-base-border-color),
+        var(--btn-success-base-bg-hover),
+        var(--btn-success-base-bg-focus),
+        var(--btn-success-base-bg-active),
+        var(--btn-success-base-color)
+      );
+    }
+
+    @include btn-variation-pseudo(
+      var(--btn-success-border-color),
+      var(--btn-success-bg-focus),
+      var(--btn-success-bg-active)
+    );
+    @include btn-disabled();
+  }
+
+  &.btn-warning {
+    &.btn-base {
+      @include btn-base(
+        var(--btn-warning-base-border-color),
+        var(--btn-warning-base-bg),
+        var(--btn-warning-base-color)
+      );
+      @include btn-base-pseudo(
+        var(--btn-warning-base-border-color),
+        var(--btn-warning-base-bg-hover),
+        var(--btn-warning-base-bg-focus),
+        var(--btn-warning-base-bg-active),
+        var(--btn-warning-base-color)
+      );
+    }
+
+    @include btn-variation-pseudo(
+      var(--btn-warning-border-color),
+      var(--btn-warning-bg-focus),
+      var(--btn-warning-bg-active)
+    );
+    @include btn-disabled();
+  }
+
+  &.btn-danger {
+    &.btn-base {
+      @include btn-base(
+        var(--btn-danger-base-border-color),
+        var(--btn-danger-base-bg),
+        var(--btn-danger-base-color)
+      );
+      @include btn-base-pseudo(
+        var(--btn-danger-base-border-color),
+        var(--btn-danger-base-bg-hover),
+        var(--btn-danger-base-bg-focus),
+        var(--btn-danger-base-bg-active),
+        var(--btn-danger-base-color)
+      );
+    }
+
+    @include btn-variation-pseudo(
+      var(--btn-danger-border-color),
+      var(--btn-danger-bg-focus),
+      var(--btn-danger-bg-active)
+    );
+    @include btn-disabled();
+  }
+
+  &.btn-inverse {
+    @include btn-variation-pseudo(
+      var(--btn-inverse-border-color),
+      var(--btn-inverse-bg-focus),
+      var(--btn-inverse-bg-active)
+    );
+    @include btn-disabled();
+  }
+
+  &.btn-rounded {
+    border-radius: 100px; // TODO: move this to design token
+
+    @include small-text;
+
+    &.btn-lg {
+      padding: var(--disw-g-spacing-xl);
+    }
+    &.btn-sm {
+      padding: var(--disw-g-spacing-sm);
+    }
+  }
+}

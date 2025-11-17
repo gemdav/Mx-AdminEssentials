@@ -1,0 +1,116 @@
+@use "../../base/mixins" as *;
+
+// tag variants
+@mixin createTagVariantColorStyles(
+  $bg-color: var(--tag-base-bg),
+  $borderColor: var(--tag-base-border-color),
+  $color: var(--tag-base-color)
+) {
+  background-color: $bg-color;
+  border-color: $borderColor;
+  color: $color;
+}
+
+@mixin createPrimaryTagColorStyles {
+  @include createTagVariantColorStyles(
+    var(--tag-primary-bg),
+    var(--tag-primary-border-color),
+    var(--tag-primary-color)
+  );
+}
+
+@mixin createInverseTagColorStyles {
+  @include createTagVariantColorStyles(
+    var(--tag-inverse-bg),
+    var(--tag-inverse-border-color),
+    var(--tag-inverse-color)
+  );
+}
+
+@mixin createSuccessTagColorStyles {
+  @include createTagVariantColorStyles(
+    var(--tag-success-bg),
+    var(--tag-success-border-color),
+    var(--tag-success-color)
+  );
+}
+@mixin createSuccessBaseTagColorStyles {
+  @include createTagVariantColorStyles(
+    var(--tag-success-base-bg),
+    var(--tag-success-base-border-color),
+    var(--tag-success-base-color)
+  );
+}
+
+@mixin createWarningTagColorStyles {
+  @include createTagVariantColorStyles(
+    var(--tag-warning-bg),
+    var(--tag-warning-border-color),
+    var(--tag-warning-color)
+  );
+}
+
+@mixin createWarningBaseTagColorStyles {
+  @include createTagVariantColorStyles(
+    var(--tag-warning-base-bg),
+    var(--tag-warning-base-border-color),
+    var(--tag-warning-base-color)
+  );
+}
+
+@mixin createErrorTagColorStyles {
+  @include createTagVariantColorStyles(
+    var(--tag-error-bg),
+    var(--tag-error-border-color),
+    var(--tag-error-color)
+  );
+}
+
+@mixin createErrorBaseTagColorStyles {
+  @include createTagVariantColorStyles(
+    var(--tag-error-base-bg),
+    var(--tag-error-base-border-color),
+    var(--tag-error-base-color)
+  );
+}
+
+@mixin createDisabledColorStyles {
+  @include createTagVariantColorStyles(
+    var(--tag-disabled-bg),
+    var(--tag-disabled-border-color),
+    var(--tag-disabled-color)
+  );
+}
+
+// tag indicator
+@mixin createTagIndicatorStyles {
+  width: 16px;
+  height: 16px;
+  background-color: var(--tag-indicator-bg);
+  border: 1px solid var(--tag-indicator-border-color);
+  border-radius: var(--disw-g-border-radius-4xl);
+}
+
+@mixin createDisabledTagIndicatorColorStyles {
+  background-color: var(--tag-disabled-indicator-bg);
+  border-color: var(--tag-disabled-indicator-border-color);
+}
+
+// tag font-styles
+@mixin createTagFontStyles {
+  font-weight: var(--font-weight-semibold);
+
+  @include small-text;
+}
+
+// tag-close styles
+@mixin tagCloseStyles {
+  &:hover,
+  &:active {
+    background-color: var(--tag-close-hover-bg);
+  }
+  &:focus {
+    outline: 2px solid var(--tag-close-outline);
+    outline-offset: 3px;
+  }
+}

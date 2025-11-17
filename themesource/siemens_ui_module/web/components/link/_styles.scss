@@ -1,0 +1,33 @@
+@use "../../base/mixins" as *;
+
+a {
+  @include ellipsis-text;
+  font-weight: var(--font-weight-bold);
+
+  &.disabled,
+  &[disabled],
+  &[aria-disabled] {
+    color: var(--link-disabled-color);
+    pointer-events: none;
+    opacity: 1;
+  }
+
+  &:focus {
+    outline: 2px solid var(--link-outline-color) !important;
+    color: var(--link-color);
+    outline-offset: 2px;
+  }
+
+  &:active {
+    color: var(--link-hover-color);
+  }
+}
+
+.mx-link {
+  border-radius: 0;
+}
+
+span + .mx-link,
+.mx-link + span {
+  display: inline;
+}

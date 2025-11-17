@@ -1,0 +1,22 @@
+// Variables
+$command-bar-padding: var(--disw-g-spacing-sm);
+$btn-padding: var(--disw-g-spacing-md) var(--disw-g-spacing-sm);
+
+@mixin command-bar-button-base {
+  color: var(--font-color-default);
+  padding: $btn-padding;
+  gap: var(--disw-g-spacing-sm);
+  font-size: var(--disw-g-font-size-xxs);
+  line-height: var(--disw-g-line-height-xxs);
+}
+
+@mixin command-bar-button-states {
+  &:focus:not(:active) {
+    background-color: transparent;
+    outline-offset: -2px;
+  }
+
+  &:active {
+    background-color: var(--command-bar-btn-selected-active-bg);
+  }
+}

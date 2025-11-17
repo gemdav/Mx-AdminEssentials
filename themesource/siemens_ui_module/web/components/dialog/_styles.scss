@@ -1,0 +1,93 @@
+@use "./mixins" as *;
+
+.modal-dialog {
+  &:has(.mx-resizer) {
+    .modal-content {
+      resize: auto;
+    }
+  }
+
+  .modal-content {
+    box-shadow: var(--disw-g-elevation-4);
+    border-radius: var(--disw-g-border-radius-md);
+    border: 0;
+    background-color: var(--dialog-bg);
+
+    .modal-header {
+      padding: var(--disw-g-spacing-lg) var(--disw-g-spacing-xl);
+
+      h4 {
+        font-size: var(--disw-g-font-size-md);
+        line-height: var(--disw-g-line-height-md);
+      }
+
+      &:hover,
+      &:focus {
+        &::before {
+          display: block;
+        }
+      }
+
+      // Drag icon on header
+      &::before {
+        @include createDragIconStyles;
+        display: none;
+        position: absolute;
+        top: -6px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      button.close {
+        font-size: 0; // kinda hacky way to hide the x text from button
+        margin-top: 0;
+        height: 24px;
+        width: 24px;
+
+        &::before {
+          content: "\e908";
+          font-family: var(--font-family-common-icon);
+          font-size: var(--disw-g-font-size-lg);
+        }
+
+        @include modalCloseBtnPseudo;
+      }
+    }
+
+    .modal-body {
+      padding: var(--disw-g-spacing-xl);
+
+      .mx-placeholder {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        // Add spacing to temporarily "fix" overflow issue
+        > .mx-dataview > .mx-dataview-content {
+          padding-left: 1px;
+          padding-right: 1px;
+        }
+      }
+    }
+  }
+
+  &.has-error {
+    .modal-header {
+      h4 {
+        &::before {
+          @include createErrorIconStyles;
+          margin-right: var(--disw-g-spacing-md);
+        }
+      }
+    }
+  }
+
+  .mx-dataview-controls {
+    border: 0 none;
+  }
+}
+
+// Hiding the popup displaying panel
+.disw-panel-popup {
+  display: none;
+}

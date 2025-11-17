@@ -1,0 +1,95 @@
+@use "../../base/mixins" as *;
+
+// PopupMenu Component Styles
+.popupmenu {
+  &-menu {
+    // Layout
+    display: block;
+    padding: 0;
+    list-style-type: none;
+
+    // Appearance
+    background-color: var(--popupmenu-bg);
+    border: 1px solid var(--popupmenu-border-color);
+    border-radius: var(--disw-g-border-radius-md);
+    box-shadow: var(--disw-g-elevation-4);
+
+    // Menu items
+    li {
+      padding: var(--disw-g-spacing-md);
+      color: var(--font-color-default);
+
+      @include small-text;
+
+      &.popupmenu-basic-item:first-child,
+      &.popupmenu-basic-item:last-child {
+        border-radius: 0;
+      }
+
+      &.popupmenu-basic-divider {
+        padding: inherit;
+        background: var(--popupmenu-border-color);
+      }
+
+      &:hover,
+      &:active,
+      &:focus {
+        background-color: var(--btn-chromeless-bg-hover);
+      }
+    }
+  }
+
+  &-trigger {
+    // Disabled state handling
+    &:has(.disabled),
+    &:has(:disabled) {
+      pointer-events: none;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.widget-tooltip-content {
+  padding: var(--disw-g-spacing-md);
+  box-shadow: var(--disw-g-elevation-4);
+  color: var(--font-color-default);
+  font-weight: var(--font-weight-semibold);
+  text-align: left;
+  background-color: var(--popupmenu-bg);
+  border: 1px solid var(--popupmenu-border-color);
+
+  .widget-tooltip-arrow-left {
+    &:before {
+      left: 4px;
+      border-bottom: 1px solid var(--popupmenu-border-color);
+      border-left: 1px solid var(--popupmenu-border-color);
+    }
+  }
+  .widget-tooltip-arrow-right {
+    &:before {
+      left: 6px;
+      border-top: 1px solid var(--popupmenu-border-color);
+      border-right: 1px solid var(--popupmenu-border-color);
+    }
+  }
+
+  .widget-tooltip-arrow-top {
+    &:before {
+      top: -1px;
+      border-top: 1px solid var(--popupmenu-border-color);
+      border-left: 1px solid var(--popupmenu-border-color);
+    }
+  }
+
+  .widget-tooltip-arrow-bottom {
+    &:before {
+      top: 2px;
+      border-bottom: 1px solid var(--popupmenu-border-color);
+      border-right: 1px solid var(--popupmenu-border-color);
+    }
+  }
+}
+
+.widget-tooltip-trigger {
+  cursor: pointer;
+}

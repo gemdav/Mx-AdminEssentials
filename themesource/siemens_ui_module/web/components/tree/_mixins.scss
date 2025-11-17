@@ -1,0 +1,19 @@
+// dotted variant
+
+@mixin createDottedStyle {
+  content: '';
+  display: block;
+  position: absolute;
+  left: -1px;
+  top: -1px;
+  width: 10px;
+  height: 19px;
+  border: dotted var(--tree-dotted-border-color);
+  border-left-color: transparent;
+  border-width: 0 0 1px 1px;
+}
+
+@mixin disabledState {
+  opacity: 0.5;
+  pointer-events: none;
+}

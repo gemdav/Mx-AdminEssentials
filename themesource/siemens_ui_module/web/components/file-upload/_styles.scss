@@ -1,0 +1,505 @@
+@use "../input/mixins" as *;
+@use "../buttons/mixins" as *;
+@use "../../base/mixins" as *;
+
+// updating styles upload/download buttons
+button.btn.mx-fileinput-upload-button,
+button.btn.mx-fileinput-download-button {
+  border-color: var(--btn-inverse-border-color);
+  background-color: var(--btn-inverse-bg);
+  color: var(--btn-inverse-color);
+  margin-left: 0;
+
+  &:focus {
+    outline: 0;
+  }
+  &:hover {
+    background-color: var(--btn-inverse-bg-hover);
+  }
+
+  @include btn-variation-pseudo(
+    var(--btn-inverse-border-color),
+    var(--btn-inverse-bg-focus),
+    var(--btn-inverse-bg-active)
+  );
+
+  @include btn-disabled();
+}
+
+// updating styles for image uploader and file manager
+.mx-imageuploader,
+.mx-filemanager {
+  // Unfortunately input shows up as readonly, so need to change styles for the input
+  input.form-control {
+    background: var(--textBox-bg);
+    border-color: var(--input-border-color);
+  }
+
+  // error styles
+  &.has-error {
+    input.form-control {
+      border-color: var(--textBox-error-border-color);
+    }
+    label {
+      color: var(--textBox-error-color);
+
+      &:before {
+        color: var(--textBox-error-color);
+      }
+    }
+  }
+
+  // required styles
+  &:not(.has-error) {
+    &:has([aria-required="true"]),
+    &.aria-required {
+      label:before {
+        @include createAsteriskIconStyles;
+      }
+
+      &:has(.mx-fileinput-upload-button[disabled]),
+      &:has(.mx-fileinput-upload-button.disabled) {
+        label:before {
+          color: var(--textBox-disabled-color);
+        }
+      }
+    }
+  }
+
+  // disabled styles
+  &:has(.mx-fileinput-upload-button[disabled]) {
+    label {
+      color: var(--textBox-disabled-color);
+    }
+
+    input.form-control {
+      background: transparent;
+      border-color: var(--textBox-disabled-border-color);
+      color: var(--textBox-disabled-color);
+    }
+  }
+
+  // changing positions of buttons
+  .mx-compound-control {
+    flex-direction: row-reverse;
+
+    .btn {
+      margin-right: -1px;
+    }
+
+    &:focus-within {
+      outline: 2px solid var(--btn-outline-color);
+      outline-offset: 2px;
+    }
+  }
+
+  // resetting alert/error styles
+  &.has-error .alert {
+    border: 0 none;
+    background: none;
+
+    @include createValidationMessageStyles;
+  }
+}
+
+// updating styles for file uploader
+.widget-file-uploader {
+  margin: 0;
+
+  // disabled styles
+  &.disabled {
+    pointer-events: none;
+    opacity: 1;
+
+    .dropzone {
+      border-color: var(--file-uploader-disabled-border-color);
+
+      .upload-text {
+        color: var(--file-uploader-disabled-color);
+      }
+
+      div.file-icon {
+        background: var(--file-uploader-disabled-color);
+      }
+    }
+  }
+
+  .dropzone {
+    background-color: var(--file-uploader-bg);
+    border: 1px dashed var(--file-uploader-border-color);
+    border-radius: var(--disw-g-border-radius-md);
+    height: auto;
+    position: relative;
+    margin-bottom: 0;
+
+    // when files are dragged over the component
+    &.active {
+      background: var(--file-uploader-active-bg);
+      border: 1px solid var(--file-uploader-active-border-color);
+
+      .file-icon {
+        background: var(--file-uploader-active-color);
+      }
+
+      .upload-text {
+        color: var(--file-uploader-active-color);
+      }
+
+      &:hover,
+      &:focus {
+        border-color: var(--file-uploader-active-border-color);
+        background: var(--file-uploader-active-bg);
+
+        .upload-text {
+          color: var(--file-uploader-active-color);
+        }
+      }
+    }
+
+    // error styles
+    &.error,
+    &.warning {
+      border-width: 1px;
+      border-style: solid;
+      border-color: var(--textBox-error-border-color);
+      background-color: var(--file-uploader-bg);
+
+      &:hover,
+      &:focus {
+        border-color: var(--textBox-error-border-color);
+      }
+
+      &:before {
+        @include createErrorIconStyles;
+      }
+    }
+
+    // resetting default hover/focus styles
+    &:hover,
+    &:focus {
+      border-width: 1px;
+
+      .file-icon {
+        background: var(--file-uploader-active-color);
+      }
+    }
+
+    // upload text styles
+    .upload-text {
+      color: var(--file-uploader-text-color);
+      font-size: var(--disw-g-font-size-md);
+      line-height: var(--disw-g-line-height-md);
+      text-decoration: none !important;
+    }
+
+    // styling the upload icon
+    .file-icon {
+      width: 48px;
+      height: 48px;
+      flex: none;
+      margin-bottom: var(--disw-g-spacing-md);
+      mask-image: var(--file-icon);
+      background: var(--file-uploader-text-color);
+    }
+  }
+
+  .dropzone-message {
+    color: var(--textBox-error-color);
+    background: none;
+    padding: 0;
+  }
+
+  // uploaded files list styles
+  .files-list {
+    &:has(.file-entry) {
+      border: 1px solid var(--file-uploader-active-border-color);
+      border-top-width: 0;
+      margin-top: -2px;
+      position: relative;
+      border-bottom-left-radius: 3px;
+      border-bottom-right-radius: 3px;
+    }
+
+    .file-entry {
+      border-top-width: 0;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      margin: 0 0 1px 0;
+      padding: var(--disw-g-spacing-md);
+      background: var(--file-uploader-list-bg);
+      border: 0 none;
+
+      &:not(.removed):not(.invalid):hover:not(:has(.action-button:hover)),
+      &:not(.removed):not(.invalid):focus:not(:has(.action-button:focus)) {
+        background: var(--file-uploader-list-bg);
+        border: 0 none;
+      }
+
+      &:focus {
+        outline: 2px solid var(--btn-outline-color);
+      }
+
+      .entry-details {
+        gap: var(--disw-g-spacing-sm);
+
+        .entry-details-main {
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+          gap: var(--disw-g-spacing-sm);
+          overflow: hidden;
+
+          .entry-details-main-name {
+            font-weight: var(--font-weight-bold);
+            color: var(--font-color-default);
+            font-size: var(--disw-g-font-size-sm);
+            line-height: var(--disw-g-line-height-sm);
+            flex: auto;
+
+            @include ellipsis-text;
+          }
+
+          .entry-details-main-size {
+            flex: none;
+            color: var(--font-color-default);
+
+            @include small-text;
+
+            &:before {
+              content: "(";
+            }
+            &::after {
+              content: ")";
+            }
+          }
+        }
+
+        .entry-details-preview {
+          display: none;
+        }
+
+        .entry-details-actions {
+          width: 12px;
+          height: 12px;
+          min-width: 12px;
+
+          .action-button {
+            padding: 0;
+            width: auto;
+
+            &:hover {
+              background-color: var(--btn-chromeless-bg-hover);
+
+              .remove-icon {
+                background: var(--font-color-default);
+              }
+            }
+
+            &:focus {
+              outline: 2px solid var(--btn-outline-color);
+            }
+          }
+
+          .remove-icon {
+            height: 12px;
+            width: 12px;
+
+            background: var(--font-color-default);
+            mask-image: var(--file-remove-icon);
+          }
+        }
+      }
+
+      .download-icon,
+      .entry-progress {
+        display: none;
+      }
+
+      .entry-upload-info {
+        .upload-status {
+          &.success {
+            color: var(--label-success-color);
+          }
+          &.error {
+            @include createValidationMessageStyles;
+          }
+        }
+      }
+    }
+
+    &:has(.invalid) {
+      border-color: var(--textBox-error-border-color);
+    }
+  }
+
+  &:has(.file-entry) {
+    .dropzone {
+      border-color: var(--file-uploader-active-border-color);
+      background: var(--file-uploader-active-bg);
+      border: 1px solid var(--file-uploader-active-border-color);
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      border-bottom-width: 0 !important;
+
+      .file-icon {
+        background: var(--file-uploader-active-color);
+      }
+
+      .upload-text {
+        color: var(--file-uploader-active-color);
+      }
+    }
+  }
+
+  &:has(.invalid) {
+    .dropzone {
+      border-width: 1px;
+      border-style: solid;
+      border-color: var(--textBox-error-border-color);
+      background-color: var(--file-uploader-bg);
+
+      &:hover,
+      &:focus {
+        border-color: var(--textBox-error-border-color);
+      }
+
+      &:before {
+        @include createErrorIconStyles;
+      }
+    }
+  }
+}
+
+.disw-fileDragDropWithLabel {
+  // required styles
+  &:has(.aria-required) {
+    label:before {
+      @include createAsteriskIconStyles;
+    }
+  }
+
+  // disabled styles
+  &:has(.widget-file-uploader.disabled) {
+    label,
+    label:before {
+      color: var(--textBox-disabled-color);
+    }
+  }
+
+  // error styles
+  &:has(.invalid),
+  &:has(.warning) {
+    label {
+      color: var(--textBox-error-color);
+
+      &:before {
+        color: var(--textBox-error-color);
+      }
+    }
+  }
+}
+
+// styles for file dropper (MX community widget)
+
+.filedropper {
+  &__dropzone {
+    border-color: var(--file-uploader-border-color);
+    color: var(--file-uploader-text-color);
+
+    &:hover,
+    &--drag {
+      border-color: var(--file-uploader-active-border-color);
+      background: var(--file-uploader-active-bg);
+      color: var(--file-uploader-active-color);
+    }
+  }
+
+  &__preview__label {
+    color: var(--font-color-default);
+    background: var(--card-bg);
+  }
+
+  &__item {
+    background: var(--file-uploader-list-bg);
+    height: auto;
+    display: flex;
+    padding: var(--disw-g-spacing-md);
+
+    &-name {
+      font-size: var(--disw-g-font-size-sm);
+    }
+
+    &-filesize {
+      font-size: var(--disw-g-font-size-xs);
+    }
+  }
+
+  &__item-info {
+    height: 100%;
+  }
+
+  &__preview {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  &__alerts {
+    .alert {
+      padding: var(--disw-g-spacing-md);
+      font-size: var(--disw-g-font-size-xs);
+    }
+
+    .close {
+      font-size: var(--disw-g-font-size-md);
+      font-family: var(--font-family-ix-icon);
+      font-weight: normal;
+      text-shadow: none;
+      color: var(--font-color-default);
+      opacity: 1;
+      width: 1rem;
+      height: 1em;
+
+      &::before {
+        content: "\e9fe";
+      }
+
+      span {
+        display: none;
+      }
+
+      @include btn-chromeless;
+    }
+  }
+
+  &__button-zone {
+    top: var(--disw-g-spacing-md);
+    right: var(--disw-g-spacing-md);
+    height: auto;
+
+    &__button.glyphicon-remove-circle,
+    &__button.glyphicon-upload,
+    &__button.glyphicon-warning-sign {
+      font-family: var(--font-family-ix-icon);
+      font-size: var(--disw-g-font-size-md);
+      height: 1em;
+
+      &::before {
+        content: "\e9fe";
+      }
+
+      @include btn-chromeless;
+    }
+
+    &__button.glyphicon-upload {
+      &::before {
+        content: "\edcb";
+      }
+    }
+
+    &__button.glyphicon-warning-sign {
+      &::before {
+        content: "\edf4";
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+@mixin showCalendarIcon_DISW {
+  font-family: var(--font-family-common-icon);
+  &::before {
+    content: "\e904" !important;
+  }
+}
+
+@mixin showCalendarIcon_iX {
+  font-family: var(--font-family-ix-icon);
+  &::before {
+    content: "\e9a1" !important;
+  }
+}

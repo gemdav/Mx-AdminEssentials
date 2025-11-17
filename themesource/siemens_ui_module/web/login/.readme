@@ -1,0 +1,9 @@
+The files in this folder can be used to overwrite the login.html files in theme, in case e.g. anonymous users are not allowed in your project and you need a different way of login.
+
+1. Copy and paste the custom folder, custom_login.scss and login.html to theme > web.
+2. Add the following code to main.scss in theme: @import "custom_login";
+3. Synchronize the App Directory in your Mendix Studio Pro project and Run the project locally.
+4. View the login screen in the browser by clicking on "View App" or by adding "/login.html" at the end of the URL. The URL should look something like this: "http://localhost:8080/login.html"
+5. You can replace the Placeholder Application Icon in theme > web > custom > resources with one that suits your project. Also, you can change the Application Name in theme > web > login.html (on line 29). Follow step 3 and 4 again to see your changes.
+
+Our reference guide is here to help you, if you have any questions: https://siemens-design-systems.mendix.com/

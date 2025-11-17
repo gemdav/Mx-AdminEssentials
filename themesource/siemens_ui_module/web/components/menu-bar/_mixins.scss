@@ -1,0 +1,17 @@
+@mixin createMenuItemPseudoState {
+  &::before {
+    content: "";
+    position: absolute;
+    height: 2px;
+    width: calc(100% - 32px);
+    background-color: var(--navsidebar-selected-border-color);
+    left: 16px;
+    bottom: 0;
+    z-index: 1;
+  }
+}
+
+@mixin resetMenuItemStyles {
+  background-color: transparent;
+  color: var(--font-color-default);
+}

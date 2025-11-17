@@ -1,0 +1,12 @@
+@mixin createLanguageIconStyles {
+  &::before {
+    content: "\eb28"; // Icon for language selector
+    font-family: var(--font-family-ix-icon);
+    margin-right: var(--disw-g-spacing-sm);
+  }
+}
+
+@mixin resetStyles {
+  border-radius: 0;
+  outline-color: var(--btn-outline-color);
+}

@@ -1,0 +1,111 @@
+@use "./mixins" as *;
+
+.disw-measurement-unit {
+  display: flex;
+  align-items: flex-start;
+
+  input.form-control {
+    // Remove the right border
+    border-right-width: 0px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+
+    &:not([disabled]) {
+      &:hover,
+      &:focus {
+        border-right-width: 1px;
+        margin-right: -1px;
+      }
+    }
+  }
+
+  label.control-label {
+    height: 14px;
+  }
+
+  div[class*="mx-name-comboBox"] {
+    flex-shrink: 1;
+  }
+
+  // position dropdown if text box has label
+  &:has(.mx-textbox label) {
+    div[class*="mx-name-comboBox"],
+    .unit-label {
+      margin-top: 18px;
+    }
+  }
+
+  div[class*="mx-name-comboBox"] {
+    font-style: italic;
+
+    .form-control, .form-control-static {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+
+      // to make dropdown appear above input
+      &:hover,
+      &:focus {
+        position: relative;
+      }
+    }
+  }
+
+  .widget-combobox-input-container-disabled:not(.form-control-static) {
+    text-align: right;
+  }
+
+  &.inner-label {
+    // error state needs border for input in all states
+    &:has(.has-error) {
+      input.form-control {
+        border-right-width: 1px;
+
+        &:not([disabled]) {
+          &:hover,
+          &:focus {
+            margin-right: 0px;
+          }
+        }
+      }
+    }
+
+    // disable the unit label on input disable state
+    &:has([disabled]) {
+      .unit-label {
+        background: var(--textBox-disabled-bg);
+        border-color: var(--textBox-disabled-border-color);
+        color: var(--textBox-disabled-color);
+      }
+    }
+
+    // read only styles for unit label
+    &:has(.mx-textbox .form-control-static) .unit-label {
+      background: var(--textBox-readOnly-bg);
+      border-color: transparent;
+    }
+
+    &:not(:has([disabled])) {
+      &:focus-within,
+      &:has(input:hover),
+      &:has(.has-error) {
+        .unit-label {
+          background: transparent;
+        }
+      }
+    }
+
+    &:has(.dirty) .unit-label {
+      background: transparent;
+    }
+
+    // unit label styles
+    .unit-label {
+      padding: var(--disw-g-spacing-md);
+      background: var(--textBox-bg);
+      border: 1px solid var(--input-border-color);
+      border-top-right-radius: 2px;
+      border-bottom-right-radius: 2px;
+      border-left-width: 0;
+    }
+  }
+}

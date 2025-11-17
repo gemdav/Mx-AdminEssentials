@@ -1,0 +1,39 @@
+@mixin createLabelSize(
+  $font-size: var(--disw-g-font-size-xs),
+  $line-height: var(--disw-g-line-height-xs)
+) {
+  font-size: $font-size;
+  line-height: $line-height;
+}
+
+$labelSizes: (
+  "body-2": xs,
+  "body-1": sm,
+  "h3": md,
+  "h1": xl,
+);
+
+$labelColors: (
+  primary: "primary",
+  success: "success",
+  warning: "warning",
+  danger: "error",
+);
+
+@mixin generateLabelSizeClasses($size, $value) {
+  &.label-#{$size} {
+    font-size: var(--disw-g-font-size-#{$value});
+    line-height: var(--disw-g-line-height-#{$value});
+  }
+}
+
+@mixin generateLabelColorClasses($color, $value) {
+  &.label-#{$color} {
+    color: var(--label-#{$value}-color);
+    background-color: transparent;
+
+    @if $color == "primary" {
+      font-weight: var(--font-weight-bold);
+    }
+  }
+}
