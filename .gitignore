@@ -39,3 +39,9 @@
 /adobesigncommons.mpr.bak
 /adobesigncommons.mpr.lock
 /modeler-merge-marker
+/adminessentials.mpr.bak
+/adminessentials.mpr.lock
+/vendorlib/temp/
+.DS_Store
+/.svn/
+/mprcontents/mprjournal*
