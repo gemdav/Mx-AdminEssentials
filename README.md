@@ -19,8 +19,7 @@ For Mendix developers and administrators seeking to streamline operational tasks
 
 1.  **Download from Marketplace:** Install the "Admin Essentials Module" from the Mendix Marketplace into your app.
 2.  **Assign Module Roles:** Navigate to `App Security` -> `User Roles` and assign the `Administrator` module role to the application level admin role and the `User` module role to all other app roles.
-3.  **Make the admin UI snippet accessible:**
-    *   This module provides a comprehensive administrative UI within a single snippet: `SNPT_AdminEssentials_Configuration`.
+3.  **Make the admin UI snippet accessible:** This module provides a comprehensive administrative UI within a single snippet (`SNPT_AdminEssentials_Configuration`)
     *   Create a dedicated administration page in your application (e.g., `AdminEssentials_Config`) which can be reached by administrators.
     *   Drag and drop the `SNPT_AdminEssentials_Configuration` snippet from the module's `USE_ME` folder onto your admin page. This snippet contains all the necessary tabs and interfaces for managing alerts, maintenance mode, user messaging, and user access reviews.
 4. **Integrate the functionality snippet:** For some of the functionalities to take effect (e.g. for alerts to be shown and the maintenance mode to be fired), the snippet `SNPT_AdminEssentials` has to be integrated into the app. It is recommended to add the snippet to the top of every non-popup layout that is used in the application.
